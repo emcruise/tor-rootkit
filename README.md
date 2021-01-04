@@ -4,6 +4,16 @@ The exe Rootkit-File contains the tor expert bundle, so no staged payload is nee
 
 ## Installation
 
+### Listener
+Note: The Listener is desgined to run on linux.
+Note: In order for the listener to work you need to configure a Tor Hidden Service in /etc/tor/torrc,
+with the base directory being /var/lib/tor.
+
+After that the listener can be run with:
+```bash
+sudo python listener.py <listen-port> <forward-port>
+```
+
 ### Client
 Note: The compilation of the Rootkit client ONLY works on Windows. 
 
