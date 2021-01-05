@@ -92,8 +92,6 @@ A class the handles the interaction between the listener and the client.
 It should NOT be accessed from outside the module.
 """
 class Client(Style):
-    BUFFERSIZE = 1024
-
     def __init__(self, clientObjects):
         self.__conn, self.__addr = clientObjects
 
@@ -108,21 +106,26 @@ class Client(Style):
             self.__conn.send(data.encode('utf-8'))
         except socket.error as error:
             self.negSysMsg('Error while sending: '.format(error))
-            return False
+            sys.exit(1)
         else:
-            return True
+            self.posSysMsg('==> send {} bytes'.format(sys.getsizeof(data)))
 
     """
     The client always sends back the output of the current task, 
     and the current working directory as a dictionary.
     """
-    def receive(self):
+    def receive(self, buffersize):
         try:
-            data = self.__conn.recv(self.BUFFERSIZE)
+            data = self.__conn.recv(buffersize)
+            # get length in bytes before unpacking data
+            dataNumBytes = sys.getsizeof(data)
+            # decode from bytes to string
             data = data.decode('utf-8')
+            # decode from string to dictionary
             data = eval(data)
         except socket.error as error:
             self.negSysMsg('Error while receiving: '.format(error))
             sys.exit(1)
         else:
+            self.posSysMsg('<== received {} bytes'.format(dataNumBytes))
             return data['output'], data['cwd']

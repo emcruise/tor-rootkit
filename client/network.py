@@ -72,6 +72,7 @@ class ClientSocket:
         try:
             data = self.__sock.recv(numBytes)
             data = data.decode(self.ENCODING)
+            print(data)
             data = eval(data)
         except socket.error as error:
             sys.exit(1)
