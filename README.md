@@ -5,6 +5,7 @@ A python3 standalone Windows 10 Rootkit. The networking works over tor hidden se
 The exe Rootkit-File contains the tor expert bundle, so no staged payload is needed.
 
 ## Installation
+First clone the git repository and change directory into the repo.
 
 ### Listener
 Note: The Listener is desgined to run on linux.
@@ -31,3 +32,7 @@ The .exe file should now be at:
 ```bash
 .\client\dist\client.exe
 ```
+
+## Features
+- Standalone executable, including python interpreter and tor expert bundle (~13MB)
+- the whole communication works over tor hidden services which guarantees some degree of anonymity
