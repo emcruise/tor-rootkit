@@ -23,7 +23,10 @@ chmod +x
 ```
 
 ### Client
-Note: The compilation of the Rootkit client ONLY works on Windows. 
+Note: The compilation of the Rootkit client ONLY works on Windows.
+
+**Insert the Onion Address the Listener prints upon running into client\client.py,
+otherwise the client wont work!**
 
 Install all dependencies:
 ```bash
@@ -36,6 +39,14 @@ python client\build.py
 The .exe file should now be at:
 ```bash
 .\client\dist\client.exe
+```
+Tor run the client just execute client.exe:
+```bash
+.\client.exe
+```
+Or run the client with the python interpreter:
+```bash
+python client.py
 ```
 
 ## Features
