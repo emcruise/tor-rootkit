@@ -8,10 +8,6 @@ The exe Rootkit-File contains the tor expert bundle, so no staged payload is nee
 First clone the git repository and change directory into the repo.
 
 ### Listener
-Note: The Listener is desgined to run on linux.
-In order for the listener to work you need to configure a Tor Hidden Service in /etc/tor/torrc,
-with the base directory being /var/lib/tor.
-
 Install all dependencies:
 ```bash
 pip3 install -r listener/requirements.txt
