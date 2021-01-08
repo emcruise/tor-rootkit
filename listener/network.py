@@ -1,37 +1,54 @@
 import socket
 import threading
 import sys
-from style import Style
+from shell_ui.style import Style
 import os
+import subprocess as sp
+import stem.process
 
 """
-A class to handle the tor hidden service.
-Note: The stem library could be used to interact with tor but it is
-rather annoying to use (maybe change in the future).
+A class to handle the tor process,
+and the tor hidden service.
 """
-class TorHiddenService(Style):
-    BASE_DIR = '/var/lib/tor/'
+class Tor(Style):
+    BASE_DIR = 'hidden_service'
+    TORRC_PATH = os.path.join('hidden_service', 'torrc')
+    TOR_SOCKS_PORT = 9200
 
     def __init__(self, name, lPort, fPort):
         self.name = name
         # listen and forward port configured in /etc/tor/torrc
         self.lPort = lPort
         self.fPort = fPort
-        if self.exists():
-            self.posSysMsg('An existing hidden serivce was found')
-            with open(os.path.join(self.BASE_DIR, self.name + '/hostname'), 'r') as f:
-                self.posSysMsg('Address: {}'.format(f.read()))
-        else:
-            self.negSysMsg('No hidden service was found in {}'.format(self.BASE_DIR))
-            self.negSysMsg('Please configure a hidden service to listen on {} 127.0.0.1:{}'.format(self.lPort, self.fPort))
+
+        # create hidden service directory
+        if not os.path.isdir(self.BASE_DIR):
+            os.mkdir(self.BASE_DIR)
+
+        self.process = self.launch()
+        self.posSysMsg('Onion: {}'.format(self.getOnionAddress()))
+
+    def launch(self) -> sp.Popen:
+        try:
+            torProcess = stem.process.launch_tor_with_config(
+                config = {
+                    'SocksListenAddress'   : '127.0.0.1:{}'.format(self.TOR_SOCKS_PORT),
+                    'SocksPort'            : '{}'.format(self.TOR_SOCKS_PORT),
+                    'HiddenServiceDir'     : '{}'.format(self.BASE_DIR),
+                    'HiddenServiceVersion' : '3',
+                    'HiddenServicePort'    : '{} 127.0.0.1:{}'.format(self.lPort, self.fPort)
+                })
+        except Exception as error:
+            self.negSysMsg('Error while starting tor')
             sys.exit(1)
-        
-    def exists(self) -> bool:
-        path = os.path.join(self.BASE_DIR, self.name)
-        if os.path.isdir(path):
-            return True
-        return False
-        
+        else:
+            self.posSysMsg('Started tor process')
+            return torProcess
+
+    def getOnionAddress(self):
+        with open(os.path.join(self.BASE_DIR, 'hostname'), 'r') as f:
+            return f.read()
+
 
 """
 A class to handle the listener socket.
@@ -59,7 +76,7 @@ class ListenerSocket(Style, threading.Thread):
             self.negSysMsg(error)
             sys.exit(1)
         else:
-            self.posSysMsg('Created socket')
+            self.posSysMsg('Created socket and bound to hidden service forward port')
             return sock
     """
     The <start> method runs as a thread and endless.
@@ -85,7 +102,16 @@ class ListenerSocket(Style, threading.Thread):
         return self.__clients
 
     def getClient(self, index):
-        return self.__clients[index] 
+        try:
+            return self.__clients[index]
+        except IndexError:
+            self.negSysMsg('Client Index out of range.')
+
+    def delClient(self, index):
+        try:
+            del(self.__clients[index])
+        except IndexError:
+            self.negSysMsg('Client Index out of range.')
 
 """
 A class the handles the interaction between the listener and the client.

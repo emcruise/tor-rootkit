@@ -1,4 +1,4 @@
-from style import Style
+from shell_ui.style import Style
 
 """
 Handles all the user input for the listener shell.

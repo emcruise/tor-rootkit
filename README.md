@@ -14,7 +14,12 @@ with the base directory being /var/lib/tor.
 
 After that the listener can be run with:
 ```bash
-sudo python listener.py <listen-port> <forward-port>
+python3 listener.py <listen-port> <forward-port>
+```
+Or:
+```bash
+chmod +x
+./listener.py <listen-port> <forward-port>
 ```
 
 ### Client

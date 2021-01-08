@@ -2,6 +2,7 @@ import PyInstaller.__main__
 import requests
 import os
 import zipfile
+from argparse import ArgumentParser
 
 
 def getTorExpertBundle():
@@ -24,14 +25,14 @@ def getTorExpertBundle():
 		os.remove('tor.zip')
 
 
-# dont download everytime
-if not os.path.isdir('torbundle'):
-	getTorExpertBundle()
-
-
-PyInstaller.__main__.run([
-    'client.py',
-    '--onefile',
-    #'--noconsole',
-    '--add-data=torbundle;torbundle'
-])
+if __name__ == '__main__':
+	# dont download everytime
+	if not os.path.isdir('torbundle'):
+		getTorExpertBundle()
+	
+	PyInstaller.__main__.run([
+	    'client.py',
+	    '--onefile',
+	    #'--noconsole',
+	    '--add-data=torbundle;torbundle'
+	])

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from network import ListenerSocket, TorHiddenService
+from network import ListenerSocket, Tor
 from shell import ListenerShell
-from style import Style
+from shell_ui.style import Style
 import commandLineArgs
 import os
 import sys
@@ -12,9 +12,9 @@ It handles all other modules of the listener package.
 """
 class Listener(Style):
     def __init__(self):
-        self.checkRunningAsRoot()
+        #self.checkRunningAsRoot()
         lport, fport = commandLineArgs.parse()
-        torHS = TorHiddenService('listener', lport, fport)
+        torHS = Tor('listener', lport, fport)
         listenerSocket = ListenerSocket(fport)
         listenerSocket.start()
         shell = ListenerShell(listenerSocket)
