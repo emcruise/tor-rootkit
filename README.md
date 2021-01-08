@@ -12,6 +12,11 @@ Note: The Listener is desgined to run on linux.
 In order for the listener to work you need to configure a Tor Hidden Service in /etc/tor/torrc,
 with the base directory being /var/lib/tor.
 
+Install all dependencies:
+```bash
+pip3 install -r listener/requirements.txt
+```
+
 After that the listener can be run with:
 ```bash
 python3 listener.py <listen-port> <forward-port>
