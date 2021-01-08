@@ -5,6 +5,7 @@ from shell_ui.style import Style
 import os
 import subprocess as sp
 import stem.process
+import stat
 
 """
 A class to handle the tor process,
@@ -24,6 +25,8 @@ class Tor(Style):
         # create hidden service directory
         if not os.path.isdir(self.BASE_DIR):
             os.mkdir(self.BASE_DIR)
+            # the owner has full permissions over dir
+            os.chmod(self.BASE_DIR, stat.S_IRWXU)
 
         self.process = self.launch()
         self.posSysMsg('Onion: {}'.format(self.getOnionAddress()))
@@ -39,7 +42,7 @@ class Tor(Style):
                     'HiddenServicePort'    : '{} 127.0.0.1:{}'.format(self.lPort, self.fPort)
                 })
         except Exception as error:
-            self.negSysMsg('Error while starting tor')
+            self.negSysMsg('Error while starting tor: {}'.format(error))
             sys.exit(1)
         else:
             self.posSysMsg('Started tor process')
