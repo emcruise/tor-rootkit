@@ -1,2 +1,2 @@
-stem=1.8.0
-colorama=0.4.3
+stem==1.8.0
+colorama==0.4.3
