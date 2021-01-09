@@ -1,5 +1,10 @@
 from network import ClientSocket, Tor
+from argparse import ArgumentParser
 import tasks
+
+
+onion = "mzdaxxejpx6yy47nifqvul44dfh6klhnmdsqmxakkrcabue2tjlb36ad.onion"
+port = 8843
 
 
 class Client:
@@ -7,7 +12,7 @@ class Client:
 
 	def __init__(self):
 		self.__tor = Tor()
-		self.__sock = ClientSocket('mzdaxxejpx6yy47nifqvul44dfh6klhnmdsqmxakkrcabue2tjlb36ad.onion', 8843)
+		self.__sock = ClientSocket(onion, port)
 
 	"""
 	Once the connection is established the client receives tasks,

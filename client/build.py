@@ -2,7 +2,7 @@ import PyInstaller.__main__
 import requests
 import os
 import zipfile
-from argparse import ArgumentParser
+import commandLineArgs
 
 
 def getTorExpertBundle():
@@ -26,6 +26,16 @@ def getTorExpertBundle():
 
 
 if __name__ == '__main__':
+	onion, port = commandLineArgs.parse()
+	# replace the onion and port line in client.py,
+	# since if havent found a more elegant way to do this yet.
+	lines = open('client.py').read().splitlines()
+	# onion address is defined in line 6
+	lines[5] = 'onion = "{}"'.format(onion)
+	# onion port is defined in line 7
+	lines[6] = 'port = {}'.format(port)
+	# write modified script to file
+	open('client.py','w').write('\n'.join(lines))
 	# dont download everytime
 	if not os.path.isdir('torbundle'):
 		getTorExpertBundle()

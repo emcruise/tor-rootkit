@@ -26,6 +26,7 @@ class Tor(Style):
         if not os.path.isdir(self.BASE_DIR):
             os.mkdir(self.BASE_DIR)
             # the owner has full permissions over dir
+            # equivalent to chmod 700
             os.chmod(self.BASE_DIR, stat.S_IRWXU)
 
         self.process = self.launch()
