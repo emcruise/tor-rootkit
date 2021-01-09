@@ -51,7 +51,8 @@ class Tor(Style):
 
     def getOnionAddress(self):
         with open(os.path.join(self.BASE_DIR, 'hostname'), 'r') as f:
-            return f.read()
+            # remove \n from hostname file
+            return f.read().rstrip()
 
 
 """

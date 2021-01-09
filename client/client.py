@@ -30,6 +30,10 @@ class Client:
 				self.__sock.send(output)
 			elif task == 'ACTIVE':
 				self.__sock.send('ACTIVE')
+			elif task == '':
+				# no empty string gets send because the client
+				# sends back the cwd everytime anyways.
+				self.__sock.send('')
 			else:
 				self.__sock.send('Unknown command')
 

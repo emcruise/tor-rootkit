@@ -11,7 +11,7 @@ class Style:
         init()
 
     def posSysMsg(self, string):
-        print(Fore.GREEN + "[*] " + S.RESET_ALL + string)
+        print('[' + Fore.GREEN + '*' + S.RESET_ALL + '] ' + string)
 
     def negSysMsg(self, string):
-        print(Fore.RED + "[-] " + S.RESET_ALL + string)
+        print('[' + Fore.RED + '-' + S.RESET_ALL + '] ' + string)

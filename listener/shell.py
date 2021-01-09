@@ -58,17 +58,19 @@ class ClientShell(Style):
 
     def run(self):
         self.posSysMsg('Starting shell with client')
-        # set cwd for code to work
-        cwd = ''
+        # initalize cwd for shell
+        self.client.send('', '')
+        _, cwd = self.client.receive(1024)
         while True:
             try:
                 command = input('{} > '.format(cwd))
                 print()
             except KeyboardInterrupt:
+                print()
                 break
             self.execute(command)
             # receive the client output
-            cwd, output = self.client.receive(self.BUFFERSIZE)
+            output, cwd = self.client.receive(self.BUFFERSIZE)
             print(output + '\n')
 
 
