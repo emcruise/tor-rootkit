@@ -19,7 +19,6 @@ python3 listener.py <listen-port> <forward-port>
 ```
 Or:
 ```bash
-chmod +x
 ./listener.py <listen-port> <forward-port>
 ```
 
