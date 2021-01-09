@@ -25,16 +25,14 @@ Or:
 ### Client
 Note: The compilation of the Rootkit client ONLY works on Windows.
 
-**Insert the Onion Address the Listener prints upon running into client\client.py,
-otherwise the client wont work!**
-
 Install all dependencies:
 ```bash
 pip3 install -r client\requirements.txt
 ```
 Once the dependencies are installed you can build the executable file:
+(Call build.py with the onion address and port of the listener.)
 ```bash
-python client\build.py
+python client\build.py <onion> <port>
 ```
 The .exe file should now be at:
 ```bash
