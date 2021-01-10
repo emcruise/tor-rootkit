@@ -34,7 +34,7 @@ class Tor(Style):
 
     def launch(self) -> sp.Popen:
         try:
-            torProcess = stem.process.launch_tor_with_config(
+            self.torProcess = stem.process.launch_tor_with_config(
                 config = {
                     'SocksListenAddress'   : '127.0.0.1:{}'.format(self.TOR_SOCKS_PORT),
                     'SocksPort'            : '{}'.format(self.TOR_SOCKS_PORT),
@@ -47,7 +47,6 @@ class Tor(Style):
             sys.exit(1)
         else:
             self.posSysMsg('Started tor process')
-            return torProcess
 
     def getOnionAddress(self):
         with open(os.path.join(self.BASE_DIR, 'hostname'), 'r') as f:

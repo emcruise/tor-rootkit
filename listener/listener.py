@@ -17,7 +17,7 @@ class Listener(Style):
         torHS = Tor('listener', lport, fport)
         listenerSocket = ListenerSocket(fport)
         listenerSocket.start()
-        shell = ListenerShell(listenerSocket)
+        shell = ListenerShell(listenerSocket, torHS)
         shell.run()
 
     """
@@ -27,6 +27,7 @@ class Listener(Style):
         if os.getuid() != 0:
             self.negSysMsg('Please run as root.')
             sys.exit(1)
+
 
 
 if __name__ == '__main__':
