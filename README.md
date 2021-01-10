@@ -13,11 +13,11 @@ pip3 install -r listener/requirements.txt
 
 After that the listener can be run with:
 ```bash
-python3 listener.py <listen-port> <forward-port>
+python3 ./listener/listener.py <hiddenservice-port> <local-port>
 ```
 Or:
 ```bash
-./listener.py <listen-port> <forward-port>
+./listener/listener.py <hiddenservice-port> <local-port>
 ```
 
 ### Client
