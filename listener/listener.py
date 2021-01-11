@@ -5,6 +5,7 @@ from shell_ui.style import Style
 import commandLineArgs
 import os
 import sys
+import shell_ui.ascii_art
 
 
 class Listener(Style):
@@ -26,6 +27,8 @@ class Listener(Style):
             self.torHS.torProcess.terminate()
         except AttributeError:
             pass
+        finally:
+            self.negSysMsg('Exiting')
 
 
 if __name__ == '__main__':
