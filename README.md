@@ -2,6 +2,9 @@
 A python3 standalone Windows 10 Rootkit. The networking works over tor hidden services.
 The exe Rootkit-File contains the tor expert bundle, so no staged payload is needed.
 
+## Disclaimer
+USE FOR EDUCATIONAL PURPOSES ONLY
+
 ## Installation
 First clone the git repository and change directory into the repo.
 
