@@ -1,5 +1,5 @@
 # Tor Rootkit
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)]
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 A Python 3 standalone Windows 10 Rootkit. The networking works over tor hidden services.
 
