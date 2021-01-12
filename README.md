@@ -59,7 +59,7 @@ python build.py <listener-onion-address> <listener-onion-port>
 
 3. Execute the bundled client:
 ```bash
-.\client\dist\client.exe
+.\dist\client.exe
 ```
 
 ## Features
