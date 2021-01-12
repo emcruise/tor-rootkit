@@ -24,6 +24,9 @@ def getTorExpertBundle():
 	if os.path.isfile('tor.zip'):
 		os.remove('tor.zip')
 
+	# change directory back to \client
+	os.chdir('..')
+
 
 if __name__ == '__main__':
 	onion, port = commandLineArgs.parse()

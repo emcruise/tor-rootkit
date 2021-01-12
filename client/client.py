@@ -3,8 +3,8 @@ from argparse import ArgumentParser
 import tasks
 
 
-onion = ""
-port = 0
+onion = "penis.onion"
+port = 187
 
 
 class Client:

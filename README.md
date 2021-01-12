@@ -39,16 +39,22 @@ The client is designed to run on Windows 10.
 #### Prerequisites
 - [Python3](https://www.python.org/)
 - [Pip3](https://pypi.org/project/pip/)
+- Add Python3 and Pip3 to PATH
 
-1. Install all pip3 dependencies:
+1. Change directory to client:
 ```bash
-pip3 install -r client\requirements.txt
+cd .\client
 ```
-2. Build executable from build.py:
+
+2. Install all pip3 dependencies:
+```bash
+pip3 install -r requirements.txt
+```
+3. Build executable from build.py:
 - downloads [Tor Expert Bundle](https://www.torproject.org/download/tor/)
 - bundles python3 interpreter and tor expert bundle into 1 standalone .exe file
 ```bash
-python client\build.py <listener-onion-address> <listener-onion-port>
+python build.py <listener-onion-address> <listener-onion-port>
 ```
 
 3. Execute the bundled client:
