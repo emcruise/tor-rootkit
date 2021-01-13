@@ -76,7 +76,7 @@ Use for educational purposes only.
 | Command | Explanation |
 | ------- | ----------- |
 | `help`  | Shows the help menu |
-| `^C`or`exit` | Exits the shell |
+| `^C` or `exit` | Exits the shell |
 | `list` | lists all connected clients with their according index |
 | `select <index>` | start shell with client |
 
@@ -90,7 +90,7 @@ Use for educational purposes only.
 ## Contribution
 All contributions are appreciated.
 
-## Credit 
+## Credits
 - [Tor](https://www.torproject.org/)
 - [PyInstaller](https://www.pyinstaller.org/)
 - [Colorama Font](https://pypi.org/project/colorama/)
