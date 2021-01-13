@@ -63,10 +63,30 @@ python build.py <listener-onion-address> <listener-onion-port>
 .\dist\client.exe
 ```
 
+## Disclaimer
+Use for educational purposes only.
+
 ## Features
 - Standalone executable, including python interpreter and tor expert bundle (~13MB)
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
 - Listener can handle multiple clients
 
-## Disclaimer
-Use for educational purposes only.
+## Listener Shell Usage
+### Listener Server Shell
+| Command | Explanation |
+| ------- | ----------- |
+| `help`  | Shows the help menu |
+| `^C`or`exit` | Exits the shell |
+| `list` | lists all connected clients with their according index |
+| `select <index>` | start shell with client |
+
+### Client Shell
+| Command | Explanation |
+| ------- | ----------- |
+| `help`  | Shows the help menu |
+| `^C` or `exit` | Exits the shell and returns to listener shell |
+| `os <command>` | Executes a command in the clients shell and returns the output |
+
+## Contribution
+All contributions are appreciated.
+

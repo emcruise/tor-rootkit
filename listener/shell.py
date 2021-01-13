@@ -23,6 +23,9 @@ class ListenerShell(Style):
         if command == '':
             pass
 
+        elif command == 'exit':
+            sys.exit(0)
+
         elif command == 'help':
             self.posSysMsg('Listener Shell Commands:\n')
             print('help   - shows this help menu')
