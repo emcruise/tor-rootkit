@@ -59,7 +59,8 @@ class ClientSocket:
     """
     def send(self, output):
         try:
-            data = {'output' : output, 'cwd' : os.getcwd()}
+            cwd = os.getcwd()
+            data = {'output' : output, 'cwd' : cwd}
             self.__sock.send(str(data).encode(self.ENCODING))
         except socket.error:
             sys.exit(1)

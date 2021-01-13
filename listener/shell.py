@@ -1,5 +1,6 @@
 from shell_ui.style import Style
 import sys
+import socket
 
 
 class ListenerShell(Style):
@@ -57,11 +58,10 @@ class ListenerShell(Style):
 
 
 class ClientShell(Style):
-    BUFFERSIZE = 1024
+    BUFFERSIZE = 4096
 
     def __init__(self, client):
         self.client = client
-        self.torHS = torHS
 
     def run(self):
         self.posSysMsg('Starting shell with client')
@@ -74,11 +74,22 @@ class ClientShell(Style):
                 print()
             except KeyboardInterrupt:
                 print()
+                continue
+            # determine if output needs to be send to not interrupt socket cycle
+            executionStatus = self.execute(command)
+            # nothing needs to be send
+            if executionStatus == -1:
+                continue
+            # socket needs to be used to receive command output
+            elif executionStatus == 0:
+                # receive the client output
+                output, cwd = self.client.receive(self.BUFFERSIZE)
+                print(output)
+            # exit client shell
+            elif executionStatus == -2:
                 break
-            self.execute(command)
-            # receive the client output
-            output, cwd = self.client.receive(self.BUFFERSIZE)
-            print(output + '\n')
+            else:
+                raise ValueError('Output of self.execute should be 0, -1 or -2.')
 
     def execute(self, command):
         if command == 'help':
@@ -86,10 +97,17 @@ class ClientShell(Style):
             print('help         - shows this help menu')
             print('os <command> - executes <command> on the remote system')
             print('^C           - exits the listener')
+            return -1
         elif command == '':
-            pass
+            return -1
         elif command[:2] == 'os':
             shellCommand = command[3:]
             self.client.send('EXECUTE', [shellCommand])
+        elif command == 'exit':
+            self.posSysMsg('Exiting client shell')
+            self.client.send('EXIT', [])
+            return -2
         else:
             self.negSysMsg('Command not recognized')
+            return -1
+        return 0

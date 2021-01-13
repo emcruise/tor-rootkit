@@ -3,8 +3,6 @@ from network import ListenerSocket, Tor
 from shell import ListenerShell
 from shell_ui.style import Style
 import commandLineArgs
-import os
-import sys
 import shell_ui.ascii_art
 
 
