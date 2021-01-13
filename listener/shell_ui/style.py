@@ -1,5 +1,6 @@
 from colorama import init, Fore
 from colorama import Style as S
+from sys import stdout
 
 
 class Style:
@@ -17,3 +18,8 @@ class Style:
 
     def negSysMsg(self, string):
         print('[' + Fore.RED + '-' + S.RESET_ALL + '] ' + string)
+
+    def clientConnectMsg(self):
+        # Dont print any client address info since the connection works over
+        # tor hidden services and the address info would be about the exit node.
+        stdout.write('\n[' + Fore.GREEN + '*' + S.RESET_ALL + '] ' + 'Client connected to the server' + '\nlistener > ')

@@ -15,3 +15,4 @@ def executeShell(command) -> str:
 		return sp.getoutput(command)
 	except sp.SubprocessError as error:
 		return str(error)
+		

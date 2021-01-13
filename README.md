@@ -71,6 +71,14 @@ Use for educational purposes only.
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
 - Listener can handle multiple clients
 
+## Upcoming Features
+- cross-plattform compatibility
+- Up- and Download functionality
+- Screenshots
+- Keylogging
+- Persistence
+- UAC-Bypass
+
 ## Listener Shell Usage
 ### Listener Server Shell
 | Command | Explanation |

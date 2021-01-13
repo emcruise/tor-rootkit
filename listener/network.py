@@ -58,7 +58,7 @@ class Tor(Style):
 class ListenerSocket(Style, threading.Thread):
     """
     A class to handle the listener socket.
-    It also handles the en- and decoding and the network protocoll.
+    It also handles the en- and decoding and the network protocol.
     """
     MAX_CONNECTIONS = 10
 
@@ -96,10 +96,7 @@ class ListenerSocket(Style, threading.Thread):
                 clientObjects = self.__sock.accept()
                 client = Client(clientObjects)
                 self.__clients.append(client)
-                # Dont print any client address info since the connection works over
-                # tor hidden services and the address info would be about the exit node.
-                print()
-                self.posSysMsg('Client connected to the server')
+                self.clientConnectMsg()
             except socket.error as error:
                 self.negSysMsg(error)
                 sys.exit(1)
@@ -151,6 +148,8 @@ class Client(Style):
         """
         try:
             data = self.__conn.recv(buffersize)
+            if len(data) <= 0:
+                return -1, -1
             # get length in bytes before unpacking data
             dataNumBytes = sys.getsizeof(data)
             # decode from bytes to string
@@ -159,7 +158,8 @@ class Client(Style):
             data = eval(data)
         except socket.error as error:
             self.negSysMsg('Error while receiving: '.format(error))
-            sys.exit(1)
+            self.__conn.close()
+            return -1, -1
         else:
             self.posSysMsg('<== received {} bytes'.format(dataNumBytes))
             return data['output'], data['cwd']
