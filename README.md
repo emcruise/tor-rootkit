@@ -90,7 +90,7 @@ Use for educational purposes only.
 ## Contribution
 All contributions are appreciated.
 
-## Credit 
+## Credits
 - [Tor](https://www.torproject.org/)
 - [PyInstaller](https://www.pyinstaller.org/)
 - [Colorama Font](https://pypi.org/project/colorama/)
