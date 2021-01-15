@@ -70,7 +70,7 @@ Use for educational purposes only.
 - Standalone executable, including python interpreter and tor expert bundle (~13MB)
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
 - Listener can handle multiple clients
-- Client out reconnects
+- Client auto reconnects
 
 ## Upcoming Features
 - cross-plattform compatibility
