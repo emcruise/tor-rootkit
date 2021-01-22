@@ -3,6 +3,8 @@ import requests
 import os
 import zipfile
 import commandLineArgs
+import random
+import string
 
 
 def getTorExpertBundle():
@@ -43,9 +45,14 @@ if __name__ == '__main__':
 	if not os.path.isdir('torbundle'):
 		getTorExpertBundle()
 	
+	# generate "random" obfuscation key
+	charset = string.ascii_lowercase + string.ascii_uppercase + string.digits
+	obfusc_key = ''.join([random.choice(charset) for _ in range(20)])
+
 	PyInstaller.__main__.run([
 	    'client.py',
 	    '--onefile',
-	    #'--noconsole',
+	    '--noconsole',
+	    '--key={}'.format(obfusc_key),
 	    '--add-data=torbundle;torbundle'
 	])
