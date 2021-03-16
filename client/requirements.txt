@@ -1,4 +1,3 @@
 PySocks
 PyInstaller
 requests
-tinyaes

