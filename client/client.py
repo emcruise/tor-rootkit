@@ -3,8 +3,8 @@ from argparse import ArgumentParser
 import tasks
 
 
-onion = "test.onion"
-port = 1025
+onion = "q3peav6zyaq64qu56jc22jzqkonp63wosnqxj5h4ulom53e45w25xsqd.onion"
+port = 8843
 
 
 class Client:
