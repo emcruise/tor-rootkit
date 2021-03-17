@@ -123,3 +123,6 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# dont leak the hidden service data
+.listener/hidden_service/
