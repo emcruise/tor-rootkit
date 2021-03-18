@@ -30,7 +30,7 @@ class Tor(Style):
             # equivalent to chmod 700
             os.chmod(self.BASE_DIR, stat.S_IRWXU)
 
-        self.process = self.launch()
+        self.launch()
         self.posSysMsg('Onion: {}'.format(self.getOnionAddress()))
 
     def launch(self):
@@ -136,7 +136,7 @@ class Client(Style):
             data = str(data)
             self.__conn.send(data.encode('utf-8'))
         except socket.error as error:
-            self.negSysMsg('Error while sending: '.format(error))
+            self.negSysMsg('Error while sending: {}'.format(error))
             sys.exit(1)
         else:
             self.posSysMsg('==> send {} bytes'.format(sys.getsizeof(data)))
@@ -157,7 +157,7 @@ class Client(Style):
             # decode from string to dictionary
             data = eval(data)
         except socket.error as error:
-            self.negSysMsg('Error while receiving: '.format(error))
+            self.negSysMsg('Error while receiving: {}'.format(error))
             self.__conn.close()
             return -1, -1
         else:

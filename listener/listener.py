@@ -36,6 +36,8 @@ class Listener(Style):
             self.torHS.torProcess.terminate()
         except AttributeError:
             pass
+        else:
+            self.negSysMsg('Terminated Tor Process')
         finally:
             self.negSysMsg('Exiting')
 
