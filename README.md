@@ -1,5 +1,5 @@
 # Tor Rootkit
-[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![Docker Image CI](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml)
 ![Standalone Compilation](https://github.com/emcruise/TorRootkit/workflows/Standalone%20Compilation/badge.svg)
 
 A Python 3 standalone Windows 10 Rootkit. The networking works over tor hidden services.
@@ -24,14 +24,14 @@ The listener is designed to run on linux.
 - [Python3](https://www.python.org/)
 - [Pip3](https://pypi.org/project/pip/)
 
-1. Install all pip3 dependencies:
+1. Build docker container:
 ```bash
-pip3 install -r listener/requirements.txt
+sudo docker build -t listener .
 ```
 
-2. Run the listener:
+2. Run docker container:
 ```bash
-./listener/listener.py <hiddenservice-port> <local-port>
+sudo docker run -it listener
 ```
 
 ### Client
