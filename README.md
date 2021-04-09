@@ -19,11 +19,6 @@ cd ./TorRootkit
 ### Listener
 The listener is designed to run on linux.
 
-#### Prerequisites
-- [Tor](https://www.torproject.org/)
-- [Python3](https://www.python.org/)
-- [Pip3](https://pypi.org/project/pip/)
-
 1. Build docker container:
 ```bash
 sudo docker build -t listener .
