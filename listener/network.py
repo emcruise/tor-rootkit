@@ -1,7 +1,7 @@
 import socket
 import threading
 import sys
-from shell_ui.style import Style
+from shell_ui.style import *
 import os
 import subprocess as sp
 import stem.process
@@ -30,7 +30,11 @@ class Tor(Style):
             # equivalent to chmod 700
             os.chmod(self.BASE_DIR, stat.S_IRWXU)
 
+        ps = ProgressSpinner('Starting Tor Process')
+        ps.start()
         self.launch()
+        ps.stop()
+        print()
         self.posSysMsg('Onion: {}'.format(self.getOnionAddress()))
 
     def launch(self):
@@ -46,8 +50,6 @@ class Tor(Style):
         except Exception as error:
             self.negSysMsg('Error while starting tor: {}'.format(error))
             sys.exit(1)
-        else:
-            self.posSysMsg('Started tor process')
 
     def getOnionAddress(self):
         with open(os.path.join(self.BASE_DIR, 'hostname'), 'r') as f:
