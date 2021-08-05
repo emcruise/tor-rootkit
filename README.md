@@ -68,11 +68,11 @@ Use for educational purposes only.
 - Client auto reconnects
 
 ## Upcoming Features
-- [] cross-plattform compatibility
-- [] Up- and Download functionality
-- [] Screenshots
-- [] Keylogging
-- [] Persistence
+- [ ] cross-plattform compatibility
+- [ ] Up- and Download functionality
+- [ ] Screenshots
+- [ ] Keylogging
+- [ ] Persistence
 
 ## Listener Shell Usage
 ### Listener Server Shell
