@@ -74,8 +74,8 @@ Use for educational purposes only.
 - [ ] Keylogging
 - [ ] Persistence
 
-## Listener Shell Usage
-### Listener Server Shell
+## How to use
+### Listener Shell Commands
 | Command | Explanation |
 | ------- | ----------- |
 | `help`  | Shows the help menu |
@@ -83,7 +83,7 @@ Use for educational purposes only.
 | `list` | lists all connected clients with their according index |
 | `select <index>` | start shell with client |
 
-### Client Shell
+### Client Shell Commands
 | Command | Explanation |
 | ------- | ----------- |
 | `help`  | Shows the help menu |
