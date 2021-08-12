@@ -3,7 +3,7 @@ from network import ListenerSocket, Tor
 from shell import ListenerShell
 from shell_ui.style import Style
 from argparse import ArgumentParser
-import shell_ui.ascii_art
+import shell_ui.ascii_art as banner
 
 
 class Listener(Style):
@@ -13,11 +13,11 @@ class Listener(Style):
     """
 
     def __init__(self):
-        lport, fport = Listener.parse_args()
-        self.torHS = Tor('listener', lport, fport)
-        listenerSocket = ListenerSocket(fport)
-        listenerSocket.start()
-        shell = ListenerShell(listenerSocket)
+        listener_port, forward_port = Listener.parse_args()
+        self.torHS = Tor('listener', listener_port, forward_port)
+        listener_socket = ListenerSocket(forward_port)
+        listener_socket.start()
+        shell = ListenerShell(listener_socket)
         shell.run()
 
     @staticmethod
@@ -43,4 +43,5 @@ class Listener(Style):
 
 
 if __name__ == '__main__':
+    banner.draw()
     Listener()

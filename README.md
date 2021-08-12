@@ -1,7 +1,7 @@
 # Tor Rootkit
 [![Docker Image CI](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml)
 
-A Python 3 standalone Windows 10 Rootkit. The networking works over tor hidden services.
+A Python 3 standalone Windows 10 / Linux Rootkit. The networking works over tor hidden services.
 
 
 ## Installation
@@ -29,12 +29,17 @@ sudo docker run -it listener
 ```
 
 ### Client
-The client is designed to run on Windows 10.
+The client runs on Windows and Linux.
+
+**Note:** 
+- On windows the build file bundles tor into the executable.
+- On Linux the build file expects that tor is installed globally.
 
 #### Prerequisites
 - [Python3](https://www.python.org/)
 - [Pip3](https://pypi.org/project/pip/)
 - Add Python3 and Pip3 to PATH
+- [Tor](https://www.torproject.org/) (on Linux)
 
 1. Change directory to client:
 ```bash
@@ -46,7 +51,7 @@ cd .\client
 pip3 install -r requirements.txt
 ```
 3. Build executable from build.py:
-- downloads [Tor Expert Bundle](https://www.torproject.org/download/tor/)
+- downloads [Tor Expert Bundle](https://www.torproject.org/download/tor/) (Windows)
 - bundles python3 interpreter and tor expert bundle into 1 standalone .exe file
 ```bash
 python build.py <listener-onion-address> <listener-onion-port>
@@ -67,7 +72,7 @@ Use for educational purposes only.
 - Client auto reconnects
 
 ## Upcoming Features
-- [ ] cross-plattform compatibility
+- [x] cross-plattform compatibility
 - [ ] Up- and Download functionality
 - [ ] Screenshots
 - [ ] Keylogging
@@ -88,6 +93,7 @@ Use for educational purposes only.
 | `help`  | Shows the help menu |
 | `^C` or `exit` | Exits the shell and returns to listener shell |
 | `os <command>` | Executes a command in the clients shell and returns the output |
+| `background` | Keeps the connection to a client and returns to listener
 
 ## Contribution
 All contributions are appreciated.

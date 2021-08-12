@@ -16,7 +16,8 @@ class Tor:
     PATH = '.\\torbundle\\Tor\\tor.exe'
 
     def __init__(self):
-        self.start()
+        if os.name == 'nt':
+            self.start()
         socks.set_default_proxy(socks.SOCKS5, '127.0.0.1', 9050)
         socket.socket = socks.socksocket
 
@@ -24,7 +25,7 @@ class Tor:
         try:
             path = self.resource_path(self.PATH)
             self.torProc = sp.Popen(path, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
-        except subprocess.SubprocessError as error:
+        except sp.SubprocessError as error:
             print(str(error))
             sys.exit(1)
 

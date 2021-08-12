@@ -6,7 +6,7 @@ import sys
 from argparse import ArgumentParser
 
 
-def getTorExpertBundle():
+def get_tor_expert_bundle():
 	# create directory for the tor expert bundle
 	os.mkdir('torbundle')
 	os.chdir('torbundle')
@@ -58,11 +58,17 @@ if __name__ == '__main__':
 	# write modified script to file
 	open('client.py','w').write('\n'.join(lines))
 	# dont download everytime
-	if not os.path.isdir('torbundle'):
-		getTorExpertBundle()
+	if not os.path.isdir('torbundle') and os.name == 'nt':
+		get_tor_expert_bundle()
 
-	PyInstaller.__main__.run([
-	    'client.py',
-	    '--onefile',
-	    '--add-data=torbundle;torbundle'
-	])
+	if os.name == 'nt':
+		PyInstaller.__main__.run([
+		    'client.py',
+		    '--onefile',
+		    '--add-data=torbundle;torbundle'
+		])
+	else:
+		PyInstaller.__main__.run([
+		    'client.py',
+		    '--onefile',
+		])

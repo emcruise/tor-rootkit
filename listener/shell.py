@@ -87,7 +87,9 @@ class ClientShell(Style):
                 command = input('{} > '.format(cwd))
             except KeyboardInterrupt:
                 print()
-                continue
+                _ = self.execute('exit')
+                self.posSysMsg('Closed connection to client')
+                break
             # determine if output needs to be send to not interrupt socket cycle
             execution_status = self.execute(command)
             # nothing needs to be send
@@ -116,7 +118,8 @@ class ClientShell(Style):
             print('help           - shows this help menu')
             print('os <command>   - executes <command> on the remote system')
             print('pwsh <command> - executes <command> on the remote system in powershell')
-            print('^C             - exits the listener')
+            print('background     - Backgrounds the current shell and returns to listener')
+            print('^C             - exits the client shell and closes connection to client')
             return -1
         elif command == '':
             return -1
@@ -127,6 +130,8 @@ class ClientShell(Style):
         elif command == 'exit':
             self.posSysMsg('Exiting client shell')
             self.client.send('EXIT', [])
+            return -2
+        elif command == 'background':
             return -2
         else:
             self.negSysMsg('Command not recognized')
