@@ -1,6 +1,7 @@
 # Tor Rootkit
 [![Docker Image CI](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml)
 [![Pyinstaller Build (Win)](https://github.com/emcruise/TorRootkit/actions/workflows/python-app.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/python-app.yml)
+[![Pyinstaller Build (Linux)](https://github.com/emcruise/TorRootkit/actions/workflows/main.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/main.yml)
 
 A Python 3 standalone Windows 10 / Linux Rootkit. The networking works over tor hidden services.
 
