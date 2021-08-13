@@ -5,6 +5,8 @@
 
 A Python 3 standalone Windows 10 / Linux Rootkit. The networking works over tor hidden services.
 
+## Disclaimer
+Use for educational purposes only.
 
 ## Installation
 - Clone with git:
@@ -59,13 +61,15 @@ pip3 install -r requirements.txt
 python build.py <listener-onion-address> <listener-onion-port>
 ```
 
-3. Execute the bundled client:
+4. Execute the bundled client (Windows):
 ```bash
 .\dist\client.exe
 ```
 
-## Disclaimer
-Use for educational purposes only.
+4. Execute the bundled client (Linux):
+```bash
+./dist/client
+```
 
 ## Features
 - Standalone executable, including python interpreter and tor expert bundle (~13MB)
@@ -93,7 +97,7 @@ Use for educational purposes only.
 | Command | Explanation |
 | ------- | ----------- |
 | `help`  | Shows the help menu |
-| `^C` or `exit` | Exits the shell and returns to listener shell |
+| `^C` or `exit` | Exits the client shell and returns to listener shell |
 | `os <command>` | Executes a command in the clients shell and returns the output |
 | `background` | Keeps the connection to a client and returns to listener
 
