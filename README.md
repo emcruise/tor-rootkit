@@ -3,7 +3,7 @@
 [![Pyinstaller Build (Win)](https://github.com/emcruise/TorRootkit/actions/workflows/python-app.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/python-app.yml)
 [![Pyinstaller Build (Linux)](https://github.com/emcruise/TorRootkit/actions/workflows/main.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/main.yml)
 
-A Python 3 standalone Windows 10 / Linux Rootkit. The networking works over tor hidden services.
+A Python 3 standalone Windows 10 / Linux Rootkit. The networking communications are established over the tor network.
 
 ## Disclaimer
 Use for educational purposes only.
@@ -36,8 +36,8 @@ sudo docker run -it listener
 The client runs on Windows and Linux.
 
 **Note:** 
-- On windows the build file bundles tor into the executable.
-- On Linux the build file expects that tor is installed globally.
+- On Windows the build file bundles tor into a executable.
+- On Linux the build file expects that tor is installed globally in order for the client to work.
 
 #### Prerequisites
 - [Python3](https://www.python.org/)
@@ -72,10 +72,11 @@ python build.py <listener-onion-address> <listener-onion-port>
 ```
 
 ## Features
-- Standalone executable, including python interpreter and tor expert bundle (~13MB)
+- Standalone executable, including python interpreter and tor
+- The executable has a size of ~13MB on Windows and ~7MB on Linux
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
-- Listener can handle multiple clients
-- Client auto reconnects
+- The Listener can handle multiple clients
+- The Client auto reconnects when a unexpected closed connection occurs
 
 ## Upcoming Features
 - [x] cross-plattform compatibility
