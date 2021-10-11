@@ -1,4 +1,6 @@
-name: Docker Image CI
+# This workflow builds the listener docker image.
+# Issues with this workflow indicate an error with the Dockerfile or with the listener package.
+name: Docker build test
 
 on:
   push:
@@ -7,11 +9,8 @@ on:
     branches: [ main ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
