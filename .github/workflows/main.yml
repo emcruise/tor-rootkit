@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,4 +38,10 @@ jobs:
     - name: Build client.py
       run: |
         cd client
-        python build.py test.onion 1025
+        python build.py
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: linux-latest
+        files: |
+          client/dist/client.exe

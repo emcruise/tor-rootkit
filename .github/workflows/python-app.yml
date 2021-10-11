@@ -6,8 +6,6 @@ name: Standalone Compilation (Win-10)
 on:
   push:
     branches: [ main, release-publish ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -35,8 +33,6 @@ jobs:
       run: |
         cd client
         python build.py
-        dir
-        dir dist\
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
