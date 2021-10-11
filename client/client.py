@@ -13,6 +13,7 @@ with open(path, 'rb') as f:
         data = f.read()
         onion = data[-67:-5].decode()
         port = int(data[-5:].decode())
+print(onion + port)
 
 
 class Client:
