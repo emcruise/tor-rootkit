@@ -29,7 +29,7 @@ sudo docker build -t listener .
 
 2. Run docker container:
 ```bash
-sudo docker run -it listener
+docker run -v $(pwd)/executables:/executables/ -it listener
 ```
 
 ### Client

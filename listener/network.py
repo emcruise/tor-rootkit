@@ -35,7 +35,7 @@ class Tor(Style):
         self.launch()
         ps.stop()
         print()
-        self.posSysMsg('Onion: {}'.format(self.getOnionAddress()))
+        self.posSysMsg('Onion: {}'.format(self.get_onion_address()))
 
     def launch(self):
         try:
@@ -51,7 +51,7 @@ class Tor(Style):
             self.negSysMsg('Error while starting tor: {}'.format(error))
             sys.exit(1)
 
-    def getOnionAddress(self):
+    def get_onion_address(self):
         with open(os.path.join(self.BASE_DIR, 'hostname'), 'r') as f:
             # remove \n from hostname file
             return f.read().rstrip()

