@@ -47,16 +47,16 @@ def parse_args():
 
 
 if __name__ == '__main__':
-	onion, port = parse_args()
+	#onion, port = parse_args()
 	# replace the onion and port line in client.py,
 	# since if havent found a more elegant way to do this yet.
-	lines = open('client.py').read().splitlines()
+	#lines = open('client.py').read().splitlines()
 	# onion address is defined in line 6
-	lines[5] = 'onion = "{}"'.format(onion)
+	#lines[5] = 'onion = "{}"'.format(onion)
 	# onion port is defined in line 7
-	lines[6] = 'port = {}'.format(port)
+	#lines[6] = 'port = {}'.format(port)
 	# write modified script to file
-	open('client.py','w').write('\n'.join(lines))
+	#open('client.py','w').write('\n'.join(lines))
 	# dont download everytime
 	if not os.path.isdir('torbundle') and os.name == 'nt':
 		get_tor_expert_bundle()

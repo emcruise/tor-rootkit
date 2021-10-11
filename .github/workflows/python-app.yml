@@ -34,4 +34,10 @@ jobs:
     - name: Build client.py
       run: |
         cd client
-        python build.py test.onion 1025
+        python build.py
+		mv dist/client.exe dist/client_win.exe
+	- name: Release
+	  uses: softprops/action-gh-release@v1
+	  with:
+	  	files: |
+			dist/client_win.exe
