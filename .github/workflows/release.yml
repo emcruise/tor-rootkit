@@ -3,8 +3,8 @@ name: Release Linux & Windows binaries
 on:
   push:
     branches: [ main, release-publish ]
-  schedule:
-    - cron: "* */6 * * *"
+#  schedule:
+#    - cron: "* */6 * * *"
 
 jobs:
   linux-release:
