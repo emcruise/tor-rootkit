@@ -2,7 +2,9 @@ name: Python3 style-linting
 
 on:
   push:
+    branches:
   pull-request:
+    branches:
 
 jobs:
   build:
