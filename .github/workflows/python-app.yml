@@ -35,6 +35,8 @@ jobs:
       run: |
         cd client
         python build.py
+        dir
+        dir dist\
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
