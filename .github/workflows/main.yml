@@ -44,4 +44,4 @@ jobs:
       with:
         tag_name: linux-latest
         files: |
-          client/dist/client.exe
+          client/dist/client
