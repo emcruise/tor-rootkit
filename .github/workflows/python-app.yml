@@ -42,4 +42,4 @@ jobs:
       with:
         tag_name: win-latest
         files: |
-          dist\client.exe
+          client\dist\client.exe
