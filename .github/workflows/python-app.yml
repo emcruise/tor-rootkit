@@ -35,10 +35,9 @@ jobs:
       run: |
         cd client
         python build.py
-        mv dist\client.exe dist\client_win.exe
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: win-latest
         files: |
-          dist\client_win.exe
+          dist\client.exe
