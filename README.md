@@ -1,7 +1,6 @@
 # Tor Rootkit
-[![Docker Image CI](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-image.yml)
-[![Pyinstaller Build (Win)](https://github.com/emcruise/TorRootkit/actions/workflows/python-app.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/python-app.yml)
-[![Pyinstaller Build (Linux)](https://github.com/emcruise/TorRootkit/actions/workflows/main.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/main.yml)
+[![Docker build test](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml)
+[![Python3 style-linting](https://github.com/emcruise/TorRootkit/actions/workflows/linting.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/linting.yml)
 
 A Python 3 standalone Windows 10 / Linux Rootkit. The networking communications are established over the tor network.
 
@@ -32,43 +31,12 @@ sudo docker build -t listener .
 docker run -v $(pwd)/executables:/executables/ -it listener
 ```
 
-### Client
-The client runs on Windows and Linux.
-
-**Note:** 
-- On Windows the build file bundles tor into a executable.
-- On Linux the build file expects that tor is installed globally in order for the client to work.
-
-#### Prerequisites
-- [Python3](https://www.python.org/)
-- [Pip3](https://pypi.org/project/pip/)
-- Add Python3 and Pip3 to PATH
-- [Tor](https://www.torproject.org/) (on Linux)
-
-1. Change directory to client:
-```bash
-cd .\client
+3. Deploy the executables:
+When the listener is up and running it generates a "executables" directory containing different payloads for different plattforms.
 ```
-
-2. Install all pip3 dependencies:
-```bash
-pip3 install -r requirements.txt
-```
-3. Build executable from build.py:
-- downloads [Tor Expert Bundle](https://www.torproject.org/download/tor/) (Windows)
-- bundles python3 interpreter and tor expert bundle into 1 standalone .exe file
-```bash
-python build.py <listener-onion-address> <listener-onion-port>
-```
-
-4. Execute the bundled client (Windows):
-```bash
-.\dist\client.exe
-```
-
-4. Execute the bundled client (Linux):
-```bash
-./dist/client
+TorRootkit/
+│    ...
+└    executables/
 ```
 
 ## Features
