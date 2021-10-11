@@ -19,7 +19,6 @@ cd ./TorRootkit
 ```
 
 ### Listener
-The listener is designed to run on linux.
 
 1. Build docker container:
 ```bash
