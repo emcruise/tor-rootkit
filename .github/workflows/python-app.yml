@@ -35,7 +35,7 @@ jobs:
       run: |
         cd client
         python build.py
-		Ren "dist\client.exe" "dist\client_win.exe"
+		rename dist\client.exe dist\client_win.exe
 	- name: Release
 	  uses: softprops/action-gh-release@v1
 	  with:
