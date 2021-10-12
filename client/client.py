@@ -25,7 +25,6 @@ class Client:
 
     def initialize_network(self):
         onion, port = read_address_from_binary()
-        print('onion: ' + onion + '\nport: ' + str(port))
         self.__sock = ClientSocket(onion, port)
         # start shell after successful network connection
         self.run()

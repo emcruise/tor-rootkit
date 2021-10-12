@@ -43,6 +43,7 @@ TorRootkit/
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
 - The Listener can handle multiple clients
 - The Client auto reconnects when a unexpected closed connection occurs
+- The Listener generates payloads for different plattforms on startup
 
 ## Upcoming Features
 - [x] cross-plattform compatibility
