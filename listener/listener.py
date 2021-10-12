@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-from network import ListenerSocket, Tor
 from shell import ListenerShell
 from shell_ui.style import Style
 from argparse import ArgumentParser
 import shell_ui.ascii_art as banner
 import generate_executables
+from network import (
+    ListenerSocket, 
+    Tor
+)
 
 
 class Listener:

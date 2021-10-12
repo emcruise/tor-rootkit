@@ -6,30 +6,24 @@ A Python 3 standalone Windows 10 / Linux Rootkit. The networking communications 
 ## Disclaimer
 Use for educational purposes only.
 
-## Installation
-- Clone with git:
+## How to use
+
+1. Clone the repo and change directory:
 ```bash
 git clone https://github.com/emcruise/TorRootkit.git
 ```
 
-- Change directory to the repository:
+2. Build docker container:
 ```bash
-cd ./TorRootkit
+docker build -t listener .
 ```
 
-### Listener
-
-1. Build docker container:
-```bash
-sudo docker build -t listener .
-```
-
-2. Run docker container:
+3. Run docker container:
 ```bash
 docker run -v $(pwd)/executables:/executables/ -it listener
 ```
 
-3. Deploy the executables:
+4. Deploy the executables:
 When the listener is up and running it generates a "executables" directory containing different payloads for different plattforms.
 ```
 TorRootkit/
@@ -45,15 +39,7 @@ TorRootkit/
 - The Client auto reconnects when a unexpected closed connection occurs
 - The Listener generates payloads for different plattforms on startup
 
-## Upcoming Features
-- [x] cross-plattform compatibility
-- [ ] Up- and Download functionality
-- [ ] Screenshots
-- [ ] Keylogging
-- [ ] Persistence
-
-## How to use
-### Listener Shell Commands
+## Listener Shell Commands
 | Command | Explanation |
 | ------- | ----------- |
 | `help`  | Shows the help menu |
@@ -68,14 +54,4 @@ TorRootkit/
 | `^C` or `exit` | Exits the client shell and returns to listener shell |
 | `os <command>` | Executes a command in the clients shell and returns the output |
 | `background` | Keeps the connection to a client and returns to listener
-
-## Contribution
-All contributions are appreciated.
-
-## Credits
-- [Tor](https://www.torproject.org/)
-- [PyInstaller](https://www.pyinstaller.org/)
-- [Colorama Font](https://pypi.org/project/colorama/)
-- [PySocks](https://pypi.org/project/PySocks/)
-- [Stem](https://stem.torproject.org/)
 
