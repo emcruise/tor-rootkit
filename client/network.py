@@ -57,7 +57,8 @@ class ClientSocket:
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect(self.remote_addr)
-        except socket.error:
+        except socket.error as err:
+            print(err)
             # randomize connection timeout to avoid network detection
             timeout = randint(self.CONNECTION_TIMEOUT - 10, self.CONNECTION_TIMEOUT + 10)
             sleep(timeout)
