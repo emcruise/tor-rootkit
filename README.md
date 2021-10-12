@@ -1,6 +1,5 @@
 # Tor Rootkit
 [![Docker build test](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml)
-[![Python3 style-linting](https://github.com/emcruise/TorRootkit/actions/workflows/linting.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/linting.yml)
 
 A Python 3 standalone Windows 10 / Linux Rootkit. The networking communications are established over the tor network.
 
