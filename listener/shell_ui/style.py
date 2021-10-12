@@ -6,23 +6,20 @@ from threading import Thread
 from progress.spinner import Spinner
 
 
+init()
+
+
 class Style:
-    """
-    The style class of the listener package.
-    It is designed to work as a superclass for all other package classes.
-    """
-
-    def __init__(self):
-        # initialize colored Font
-        init()
-
-    def posSysMsg(self, string):
+    @staticmethod
+    def pos_sys_msg(string):
         print('[' + Fore.GREEN + '*' + S.RESET_ALL + '] ' + string)
 
-    def negSysMsg(self, string):
+    @staticmethod
+    def neg_sys_msg(string):
         print('[' + Fore.RED + '-' + S.RESET_ALL + '] ' + string)
 
-    def clientConnectMsg(self):
+    @staticmethod
+    def client_connect_msg():
         # Dont print any client address info since the connection works over
         # tor hidden services and the address info would be about the exit node.
         stdout.write('\n[' + Fore.GREEN + '*' + S.RESET_ALL + '] ' + 'Client connected to the server' + '\nlistener > ')
@@ -33,6 +30,7 @@ class ProgressSpinner(Thread):
         Thread.__init__(self)
         Thread.daemon = True
         self.message = message
+        self.running = False
 
     def run(self):
         self.running = True

