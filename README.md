@@ -1,7 +1,7 @@
 # Tor Rootkit
 [![Docker build test](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml)
 
-A Python 3 standalone Windows 10 / Linux Rootkit. The networking communications are established over the tor network.
+A Python 3 standalone Windows 10 / Linux Rootkit. The networking communication get's established over the tor network.
 
 ## Disclaimer
 Use for educational purposes only.
@@ -11,6 +11,7 @@ Use for educational purposes only.
 1. Clone the repo and change directory:
 ```bash
 git clone https://github.com/emcruise/TorRootkit.git
+cd ./tor-rootkit
 ```
 
 2. Build docker container:
