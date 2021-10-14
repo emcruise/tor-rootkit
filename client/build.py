@@ -4,6 +4,13 @@ import os
 import zipfile
 import sys
 from argparse import ArgumentParser
+from random import choice
+from string import (
+    acsii_lowercase,
+    ascii_uppercase,
+    digits
+)
+
 
 
 def get_tor_expert_bundle():
@@ -47,14 +54,13 @@ if __name__ == '__main__':
     if not os.path.isdir('torbundle') and os.name == 'nt':
         get_tor_expert_bundle()
 
+    encryption_key_charset = ascii_uppercase + acsii_lowercase + digits
+    encryption_key = ''.join(choice(encryption_key_charset) for _ in range(16))
+
+    pyinstaller_args = ['client.py', '--onefile', '--key={}'.format(encryption_key)]
+    pyinstaller_args_windows = ['--add-data=torbundle;torbundle']
     if os.name == 'nt':
-        PyInstaller.__main__.run([
-            'client.py',
-            '--onefile',
-            '--add-data=torbundle;torbundle'
-        ])
+        pyinstaller_args += pyinstaller_args_windows
+        PyInstaller.__main__.run(pyinstaller_args)
     else:
-        PyInstaller.__main__.run([
-            'client.py',
-            '--onefile',
-        ])
+        PyInstaller.__main__.run(pyinstaller_args)
