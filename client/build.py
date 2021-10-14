@@ -58,7 +58,7 @@ if __name__ == '__main__':
     encryption_key = ''.join(choice(encryption_key_charset) for _ in range(16))
 
     pyinstaller_args = ['client.py', '--onefile', '--key={}'.format(encryption_key)]
-    pyinstaller_args_windows = ['--add-data=torbundle;torbundle']
+    pyinstaller_args_windows = ['--add-data=torbundle;torbundle', '--upx-dir=upx-3.96-win64']
     pyinstaller_args_linux = ['--upx-dir=upx-3.96-amd64_linux/']
     if os.name == 'nt':
         pyinstaller_args += pyinstaller_args_windows
