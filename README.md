@@ -32,6 +32,8 @@ TorRootkit/
 └    executables/
 ```
 
+**Note: The client can take some time (20s-30s) to connect because PyInstaller executables are a bit slower and it need's to start tor.**
+
 ## Features
 - Standalone executable, including python interpreter and tor
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
