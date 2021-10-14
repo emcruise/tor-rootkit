@@ -1,4 +1,4 @@
 PySocks
 PyInstaller
 requests
-PyCrypto
+PyCryptodome

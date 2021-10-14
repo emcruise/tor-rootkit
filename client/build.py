@@ -6,7 +6,7 @@ import sys
 from argparse import ArgumentParser
 from random import choice
 from string import (
-    acsii_lowercase,
+    ascii_lowercase,
     ascii_uppercase,
     digits
 )
