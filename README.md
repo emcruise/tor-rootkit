@@ -34,7 +34,6 @@ TorRootkit/
 
 ## Features
 - Standalone executable, including python interpreter and tor
-- The executable has a size of ~13MB on Windows and ~7MB on Linux
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
 - The Listener can handle multiple clients
 - The Client auto reconnects when a unexpected closed connection occurs
