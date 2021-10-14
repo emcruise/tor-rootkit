@@ -54,7 +54,7 @@ if __name__ == '__main__':
     if not os.path.isdir('torbundle') and os.name == 'nt':
         get_tor_expert_bundle()
 
-    encryption_key_charset = ascii_uppercase + acsii_lowercase + digits
+    encryption_key_charset = ascii_uppercase + ascii_lowercase + digits
     encryption_key = ''.join(choice(encryption_key_charset) for _ in range(16))
 
     pyinstaller_args = ['client.py', '--onefile', '--key={}'.format(encryption_key)]
