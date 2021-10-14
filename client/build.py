@@ -59,8 +59,10 @@ if __name__ == '__main__':
 
     pyinstaller_args = ['client.py', '--onefile', '--key={}'.format(encryption_key)]
     pyinstaller_args_windows = ['--add-data=torbundle;torbundle']
+    pyinstaller_args_linux = ['--upx-dir=upxfiles/upx']
     if os.name == 'nt':
         pyinstaller_args += pyinstaller_args_windows
         PyInstaller.__main__.run(pyinstaller_args)
     else:
+        pyinstaller_args += pyinstaller_args_linux
         PyInstaller.__main__.run(pyinstaller_args)

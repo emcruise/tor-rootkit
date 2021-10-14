@@ -24,6 +24,8 @@ jobs:
     - name: Build client.py
       run: |
         cd client
+        wget https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz -O upxfiles.tar.xz
+        tar -xf upxfiles.tar.xz
         python build.py
     - name: Release
       uses: softprops/action-gh-release@v1
