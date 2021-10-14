@@ -2,3 +2,4 @@ PySocks
 PyInstaller
 requests
 PyCryptodome
+tinyaes
