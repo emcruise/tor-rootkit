@@ -10,60 +10,62 @@ class ListenerShell:
 
     def __init__(self, listener_socket):
         self.listener_socket = listener_socket
+        self.__command = None
 
     def run(self):
         while True:
             try:
-                command = input('listener > ')
+                self.__command = input('listener > ')
             except KeyboardInterrupt:
                 print()
                 break
-            self.execute(command)
+            if self.__command != '':
+                command_function_map = {
+                    'exit': self.__exit_shell,
+                    'help': self.__help_menu,
+                    'list': self.__list_clients,
+                    'select': self.__start_client_shell,
+                    'del': self.__delete_client
+                }
+                func = command_function_map.get(self.__command.split(" ")[0], lambda: Style.neg_sys_msg('Command unknown'))
+                func()
 
-    def execute(self, command):
-        if command == '':
-            pass
+    def __exit_shell(self):
+        sys.exit(0)
 
-        elif command == 'exit':
-            sys.exit(0)
+    def __help_menu(self):
+        Style.pos_sys_msg('Listener Shell Commands:\n')
+        print('help   - shows this help menu')
+        print('list   - lists all client connections and checks if they are active')
+        print('select - start client shell by index')
+        print('^C     - exits the listener')
 
-        elif command == 'help':
-            Style.pos_sys_msg('Listener Shell Commands:\n')
-            print('help   - shows this help menu')
-            print('list   - lists all client connections and checks if they are active')
-            print('select - start client shell by index')
-            print('^C     - exits the listener')
-
-        elif command == 'list':
-            index = 0
-
-            for client in self.listener_socket.get_clients():
-                try:
-                    client.send('ACTIVE', [])
-                    data, cwd = client.receive(1024)
-                    if data == -1 and cwd == -1:
-                        Style.neg_sys_msg('Client {} inactive'.format(index))
-                except socket.error:
+    def __list_clients(self):
+        index = 0
+        for client in self.listener_socket.get_clients():
+            try:
+                client.send('ACTIVE', [])
+                data, cwd = client.receive(1024)
+                if data == -1 and cwd == -1:
                     Style.neg_sys_msg('Client {} inactive'.format(index))
+            except socket.error:
+                Style.neg_sys_msg('Client {} inactive'.format(index))
+            else:
+                if data == 'ACTIVE':
+                    Style.pos_sys_msg('Client {} active'.format(index))
                 else:
-                    if data == 'ACTIVE':
-                        Style.pos_sys_msg('Client {} active'.format(index))
-                    else:
-                        Style.neg_sys_msg('Client {} inactive'.format(index))
-                index += 1
+                    Style.neg_sys_msg('Client {} inactive'.format(index))
+            index += 1
 
-        elif command[:6] == 'select':
-            index = int(command[7])
-            client = self.listener_socket.get_client(index)
-            shell = ClientShell(client)
-            shell.run()
+    def __start_client_shell(self):
+        index = int(self.__command[7])
+        client = self.listener_socket.get_client(index)
+        shell = ClientShell(client)
+        shell.run()
 
-        elif command[:3] == 'del':
-            index = int(command[4])
-            self.listener_socket.del_client(index)
-
-        else:
-            Style.neg_sys_msg('Command unknown')
+    def __delete_client(self, command):
+        index = int(command[4])
+        self.listener_socket.del_client(index)
 
 
 class ClientShell:
