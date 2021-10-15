@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 import shell_ui.ascii_art as banner
 import generate_executables
 from network import (
-    ListenerSocket, 
+    ListenerSocket,
     Tor
 )
 

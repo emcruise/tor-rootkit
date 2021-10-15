@@ -4,7 +4,7 @@ from threading import Thread
 from progress.spinner import Spinner
 from colorama import Style as St
 from colorama import (
-    init, 
+    init,
     Fore
 )
 

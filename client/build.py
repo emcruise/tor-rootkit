@@ -3,7 +3,6 @@ import requests
 import os
 import zipfile
 import sys
-from argparse import ArgumentParser
 from random import choice
 from string import (
     ascii_lowercase,
