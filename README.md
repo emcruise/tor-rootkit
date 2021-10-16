@@ -40,6 +40,7 @@ TorRootkit/
 - The Listener can handle multiple clients
 - The Client auto reconnects when a unexpected closed connection occurs
 - The Listener generates payloads for different plattforms on startup
+- automatically sorts out disconnected clients
 
 ## Listener Shell Commands
 | Command | Explanation |
