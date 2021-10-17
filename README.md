@@ -50,7 +50,7 @@ TorRootkit/
 | `list` | lists all connected clients with their according index |
 | `select <index>` | start shell with client |
 
-### Client Shell Commands
+## Client Shell Commands
 | Command | Explanation |
 | ------- | ----------- |
 | `help`  | Shows the help menu |
