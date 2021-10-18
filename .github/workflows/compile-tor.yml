@@ -3,14 +3,17 @@ name: Compile Tor for Linux on Ubuntu LTS
 on:
   workflow_dispatch:
   schedule:
-    - cron: "* * */1 * *"
+    - cron: "0 0 * * *"
 
 jobs:
   compile-tor:
+    runs-on: ubuntu-latest
+    
+    steps:
     - name: Compile Tor
       run: |
-        apt update
-        apt install -y git build-essential automake libevent-dev libssl-dev zlib1g-dev
+        sudo apt-get update
+        sudo apt-get install -y git build-essential automake libevent-dev libssl-dev zlib1g-dev
         git clone https://git.torproject.org/tor.git
         cd tor
         ./autogen.sh
