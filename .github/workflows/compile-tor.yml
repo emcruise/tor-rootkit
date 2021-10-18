@@ -8,14 +8,14 @@ on:
 jobs:
   compile-tor:
     - name: Compile Tor
-    run: |
-      apt update
-      apt install -y git build-essential automake libevent-dev libssl-dev zlib1g-dev
-      git clone https://git.torproject.org/tor.git
-      cd tor
-      ./autogen.sh
-      ./configure --disable-asciidoc
-      make
+      run: |
+        apt update
+        apt install -y git build-essential automake libevent-dev libssl-dev zlib1g-dev
+        git clone https://git.torproject.org/tor.git
+        cd tor
+        ./autogen.sh
+        ./configure --disable-asciidoc
+        make
 
     - name: Release Tor Binary
     uses: softprops/action-gh-release@v1
