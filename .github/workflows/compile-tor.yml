@@ -12,8 +12,8 @@ jobs:
     steps:
     - name: Compile Tor
       run: |
-        apt update
-        apt install -y git build-essential automake libevent-dev libssl-dev zlib1g-dev
+        apt-get update
+        apt-get install -y git build-essential automake libevent-dev libssl-dev zlib1g-dev
         git clone https://git.torproject.org/tor.git
         cd tor
         ./autogen.sh
