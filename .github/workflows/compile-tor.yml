@@ -3,10 +3,13 @@ name: Compile Tor for Linux on Ubuntu LTS
 on:
   workflow_dispatch:
   schedule:
-    - cron: "* * */1 * *"
+    - cron: "0 0 * * *"
 
 jobs:
   compile-tor:
+    runs-on: ubuntu-latest
+    
+    steps:
     - name: Compile Tor
       run: |
         apt update
