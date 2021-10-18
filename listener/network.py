@@ -163,3 +163,43 @@ class Client:
         else:
             Style.pos_sys_msg('<== received {} bytes'.format(num_bytes))
             return data['output'], data['cwd']
+
+
+class Download(Client):
+    BUFFER_SIZE = 2048
+
+    def __init__(self, client_objects, remote_path, local_path):
+        Client.__init__(self, client_objects)
+        self.remote_path = remote_path
+        self.local_path = local_path
+
+    def start(self):
+        self.send('DOWNLOAD', [self.remote_path])
+        file_complete = False
+        while not file_complete:
+            file_data_split, file_complete = self.receive(self.BUFFER_SIZE)
+            self.__write(file_data_split)
+
+    def __write(self, file_data_split):
+        # Maybe consider raising an exception when data could not be written to avoid incomplete files.
+        with open(self.local_path, 'a+') as f:
+            f.write(file_data_split)
+
+
+class Upload(Client):
+    def __init__(self, client_objects, remote_path, local_path):
+        Client.__init__(self, client_objects)
+        self.remote_path = remote_path
+        self.local_path = local_path
+
+    def start(self):
+        self.send('UPLOAD', [self.remote_path])
+        file_complete = False
+        file_data, file_size = self.__read()
+
+
+    def __read(self):
+        with open(self.local_path, 'r') as f:
+            file_data = f.read()
+            return file_data, len(file_data.encode())
+
