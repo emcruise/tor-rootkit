@@ -2,7 +2,6 @@ from network import ClientSocket, Tor
 import tasks
 import sys
 import os
-import socket
 
 
 def read_address_from_binary():
@@ -12,6 +11,7 @@ def read_address_from_binary():
         data = f.read()
         onion = data[-67:-5].decode()
         port = int(data[-5:].decode())
+    print(onion + str(port))
     return onion, port
 
 

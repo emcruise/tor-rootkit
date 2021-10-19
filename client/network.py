@@ -32,6 +32,7 @@ class Tor:
         except Exception as error:
             print(str(error))
             sys.exit(1)
+        print('Started tor')
         return tor_process
 
     @staticmethod
