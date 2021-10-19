@@ -12,17 +12,20 @@ class Tor:
     A class to interact with the tor expert bundle.
     Note: The stem library could be used to interact with tor.
     """
-    PATH = '.\\torbundle\\Tor\\tor.exe'
+    TOR_PATH_WIN = '.\\torbundle\\Tor\\tor.exe'
+    TOR_PATH_LINUX = './tor_linux/tor'
 
     def __init__(self):
-        if os.name == 'nt':
-            self.tor_process = self.start()
+        self.tor_process = self.start()
         socks.set_default_proxy(socks.SOCKS5, '127.0.0.1', 9050)
         socket.socket = socks.socksocket
 
     def start(self):
         try:
-            path = Tor.resource_path(self.PATH)
+            if os.name == 'nt':
+                path = Tor.resource_path(self.TOR_PATH_WIN)
+            else:
+                path = Tor.resource_path(self.TOR_PATH_LINUX)
             tor_process = sp.Popen(path, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
         except sp.SubprocessError as error:
             print(str(error))
