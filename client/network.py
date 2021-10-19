@@ -26,6 +26,7 @@ class Tor:
                 path = Tor.resource_path(self.TOR_PATH_WIN)
             else:
                 path = Tor.resource_path(self.TOR_PATH_LINUX)
+                sp.Popen(['chmod', '+x', path])
             tor_process = sp.Popen(path, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
             print(tor_process.stdout.read() + tor_process.stderr.read())
         except sp.SubprocessError as error:
