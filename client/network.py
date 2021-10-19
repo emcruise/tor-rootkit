@@ -27,6 +27,7 @@ class Tor:
             else:
                 path = Tor.resource_path(self.TOR_PATH_LINUX)
             tor_process = sp.Popen(path, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
+            print(tor_process.stdout.read() + tor_process.stderr.read())
         except sp.SubprocessError as error:
             print(str(error))
             sys.exit(1)
