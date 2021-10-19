@@ -41,7 +41,8 @@ class Client:
                 # evaluate output
                 execution_status = self.execute(task, args)
             # broken connection because either network.send or network.receive raised an exception.
-            except socket.error:
+            except Exception as err:
+                print(err)
                 del self.__sock
                 break
             if execution_status == -1:
