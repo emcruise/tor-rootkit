@@ -29,7 +29,7 @@ class Tor:
                 sp.Popen(['chmod', '+x', path])
             tor_process = sp.Popen(path, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
             print(tor_process.stdout.read() + tor_process.stderr.read())
-        except sp.SubprocessError as error:
+        except Exception as error:
             print(str(error))
             sys.exit(1)
         return tor_process
