@@ -56,3 +56,6 @@ TorRootkit/
 | `os <command>` | Executes a command in the clients shell and returns the output |
 | `background` | Keeps the connection to a client and returns to listener
 
+## Contribution
+
+Any contributions are appreciated. Make a pull-requests and I'll merge if it passes my automatic tests.
