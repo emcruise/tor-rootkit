@@ -35,12 +35,10 @@ TorRootkit/
 **Note: The client can take some time (20s-30s) to connect because PyInstaller executables are a bit slower and it need's to start tor.**
 
 ## Features
-- Standalone executable, including python interpreter and tor
+- Standalone executables for Windows and Linux, including python interpreter and tor
 - the whole communication works over tor hidden services which guarantees some degree of anonymity
 - The Listener can handle multiple clients
-- The Client auto reconnects when a unexpected closed connection occurs
-- The Listener generates payloads for different plattforms on startup
-- automatically sorts out disconnected clients
+- The Listener generates payloads for different platforms on startup
 
 ## Listener Shell Commands
 | Command | Explanation |
