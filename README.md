@@ -32,7 +32,7 @@ TorRootkit/
 └    executables/
 ```
 
-**Note: The client can take some time (20s-30s) to connect because PyInstaller executables are a bit slower and it need's to start tor.**
+**Note: The client can take some time to connect because PyInstaller executables are a bit slower and it need's to start tor.**
 
 ## Features
 - Standalone executables for Windows and Linux, including python interpreter and tor
