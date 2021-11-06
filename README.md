@@ -1,4 +1,4 @@
-# Tor Rootkit
+# tor-rootkit
 [![Docker build test](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml/badge.svg)](https://github.com/emcruise/TorRootkit/actions/workflows/docker-test.yml)
 
 A Python 3 standalone Windows 10 / Linux Rootkit. The networking communication get's established over the tor network.
