@@ -164,5 +164,3 @@ class Client:
             Style.pos_sys_msg('<== received {} bytes'.format(num_bytes))
             return data['output'], data['cwd']
 
-
-
