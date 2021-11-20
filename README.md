@@ -11,7 +11,7 @@ Use for educational purposes only.
 
 1. Clone the repo and change directory:
 ```bash
-git clone https://github.com/emcruise/TorRootkit.git
+git clone https://github.com/emcruise/tor-rootkit.git
 cd ./tor-rootkit
 ```
 
