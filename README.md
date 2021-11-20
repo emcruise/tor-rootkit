@@ -28,7 +28,7 @@ docker run -v $(pwd)/executables:/executables/ -it listener
 4. Deploy the executables:
 When the listener is up and running it generates a "executables" directory containing different payloads for different plattforms.
 ```
-TorRootkit/
+tor-rootkit/
 │    ...
 └    executables/
 ```
