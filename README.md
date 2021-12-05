@@ -3,6 +3,8 @@
 
 A Python 3 standalone Windows 10 / Linux Rootkit. The networking communications are established over the tor network.
 
+This rootkit is WIP as pointed out by @PinkDev1.
+
 ## Disclaimer
 Use for educational purposes only.
 
