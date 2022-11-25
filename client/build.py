@@ -17,7 +17,7 @@ def get_tor_expert_bundle():
     os.chdir('torbundle')
 
     # download tor expert bundle
-    tor_url = 'https://www.torproject.org/dist/torbrowser/11.5.4/tor-win32-0.4.7.10.zip'
+    tor_url = 'https://www.torproject.org/dist/torbrowser/11.5.8/tor-win32-0.4.7.11.zip'
     file_data = requests.get(tor_url, allow_redirects=True)
 
     # write downloaded tor expert bundle
